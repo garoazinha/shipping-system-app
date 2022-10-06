@@ -1,0 +1,17 @@
+pt-BR:
+  Hello World: Olá mundo
+  activerecord:
+    models:
+      shipping_mode:
+        one: Modalidade de transporte
+        other: Modalidades de transporte
+    attributes:
+      shipping_mode:
+        name: 'Nome'
+        min_distance: Distância mínima de serviço
+        max_distance: Distância máxima de serviço
+        min_weight: Peso mínimo de serviço
+        max_weight: Peso máximo de serviço
+        description: Descrição
+        fixed_fee: Taxa fixa
+

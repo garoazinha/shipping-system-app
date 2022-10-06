@@ -1,0 +1,20 @@
+<h2>Modalidades de transporte</h2>
+<br/>
+<%= link_to 'Cadastrar nova modalidade de transporte', new_shipping_mode_path %>
+
+<% @shipping_modes.each do |sm| %>
+  <h4><%= sm.name %></h4>
+  <dl>
+    <dt>Intervalo de distância:</dt>
+    <dd><%= sm.min_distance %>-<%= sm.max_distance %> km</dd>
+    <dt>Intervalo de peso:</dt>
+    <dd><%= sm.min_weight %>-<%= sm.max_weight %> g</dd>
+    <dt>Taxa fixa:</dt>
+    <dd><%= number_to_currency(sm.fixed_fee) %></dd>
+  
+  </dl>
+<% end %>
+
+<% if @shipping_modes.empty? %>
+  Não há modalidades de transporte disponíveis
+<% end %>

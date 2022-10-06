@@ -1,0 +1,13 @@
+<h3><%= @shipping_mode.name %></h3>
+
+<p><%= @shipping_mode.description %></p>
+
+<dl>
+    <dt>Intervalo de distância de serviço:</dt>
+    <dd><%= @shipping_mode.min_distance %>-<%= @shipping_mode.max_distance %> km</dd>
+    <dt>Intervalo de peso de serviço:</dt>
+    <dd><%= number_with_precision(@shipping_mode.min_weight.to_f/1000) %>-<%= @shipping_mode.max_weight/1000 %> kg</dd>
+    <dt>Taxa fixa:</dt>
+    <dd><%= number_to_currency(@shipping_mode.fixed_fee) %></dd>
+  
+  </dl>
