@@ -1,0 +1,41 @@
+<% if @shipping_mode.errors.any? %>
+  <div>
+    <% @shipping_mode.errors.each do |e| %>
+      <%= e.full_message %>
+    <% end %>
+  </div>
+<% end %>
+
+<%= form_with(model: @shipping_mode) do |f| %>
+  <div>
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+  <div>
+    <%= f.label :max_distance %>
+    <%= f.number_field :max_distance %> km
+  </div>
+  <div>
+    <%= f.label :min_distance %>
+    <%= f.number_field :min_distance %> km
+  </div>
+  <div>
+    <%= f.label :max_weight  %>
+    <%= f.number_field :max_weight %> g
+  </div>
+  <div>
+    <%= f.label :min_weight %>
+    <%= f.number_field :min_weight %> g
+  </div>
+  <div>
+    <%= f.label :fixed_fee %>
+    <%= f.number_field :fixed_fee, step: 0.01 %>
+  </div>
+  <div>
+    <%= f.label :description %>
+    <%= f.text_area :description %>
+  </div>
+ 
+
+  <%= f.submit 'Enviar' %>
+<% end %>

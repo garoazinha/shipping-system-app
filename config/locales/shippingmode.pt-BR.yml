@@ -1,5 +1,6 @@
 pt-BR:
-  Hello World: Olá mundo
+  active: Ativo
+  inactive: Desativado
   activerecord:
     models:
       shipping_mode:
@@ -14,4 +15,7 @@ pt-BR:
         max_weight: Peso máximo de serviço
         description: Descrição
         fixed_fee: Taxa fixa
+        status:
+          active: Ativo
+          inactive: Desativado
 

@@ -1,4 +1,5 @@
 <h3><%= @shipping_mode.name %></h3>
+<p><%= link_to 'Editar', edit_shipping_mode_path(@shipping_mode.id) %></p>
 
 <p><%= @shipping_mode.description %></p>
 
@@ -9,5 +10,8 @@
     <dd><%= number_with_precision(@shipping_mode.min_weight.to_f/1000) %>-<%= @shipping_mode.max_weight/1000 %> kg</dd>
     <dt>Taxa fixa:</dt>
     <dd><%= number_to_currency(@shipping_mode.fixed_fee) %></dd>
+    <dt>Status:</dt>
+    <dd><%= t(@shipping_mode.status) %></dd>
+
   
-  </dl>
+</dl>
