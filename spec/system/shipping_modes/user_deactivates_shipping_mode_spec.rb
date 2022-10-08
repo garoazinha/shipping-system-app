@@ -2,11 +2,15 @@ require 'rails_helper'
 
 describe 'Usuário desativa modalidade de transporte' do
   it 'na página de edição' do
+
     #Arrange
+    user = User.create!(name: 'Mariana S', email: 'mari@sistemadefrete.com.br',
+                        password: 'password', role: :admin)
     sm = ShippingMode.create(name: 'Convencional', min_weight: 1, max_weight: 100000,
                             min_distance: 1, max_distance: 2000, fixed_fee: 1.00,
                             description: "Modalidade de transporte convencional")
     #Act
+    login_as(user)
     visit root_path
     click_on 'Modalidades de transporte'
     click_on 'Convencional'
@@ -19,6 +23,8 @@ describe 'Usuário desativa modalidade de transporte' do
 
   it 'com sucesso' do
     #Arrange
+    user = User.create!(name: 'Mariana S', email: 'mari@sistemadefrete.com.br',
+                        password: 'password', role: :admin)
     sm = ShippingMode.create(name: 'Convencional', min_weight: 1, max_weight: 100000,
                             min_distance: 1, max_distance: 2000, fixed_fee: 1.00,
                             description: "Modalidade de transporte convencional")
@@ -26,6 +32,7 @@ describe 'Usuário desativa modalidade de transporte' do
                             min_distance: 1, max_distance: 500, fixed_fee: 1.50,
                             description: "Modalidade de transporte expresso até 12 horas")
     #Act
+    login_as(user)
     visit root_path
     click_on 'Modalidades de transporte'
     click_on 'Convencional'

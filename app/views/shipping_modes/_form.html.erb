@@ -29,12 +29,13 @@
   </div>
   <div>
     <%= f.label :fixed_fee %>
-    <%= f.number_field :fixed_fee, step: 0.01 %>
+    R$<%= f.number_field :fixed_fee, step: 0.01 %>
   </div>
   <div>
     <%= f.label :description %>
     <%= f.text_area :description %>
   </div>
+  
  
 
   <%= f.submit 'Enviar' %>

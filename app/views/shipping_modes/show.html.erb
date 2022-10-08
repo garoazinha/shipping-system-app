@@ -1,5 +1,8 @@
 <h3><%= @shipping_mode.name %></h3>
-<p><%= link_to 'Editar', edit_shipping_mode_path(@shipping_mode.id) %></p>
+
+<% if user_signed_in? && current_user.admin? %>
+    <p><%= link_to 'Editar', edit_shipping_mode_path(@shipping_mode.id) %></p>
+<% end %>
 
 <p><%= @shipping_mode.description %></p>
 
@@ -8,7 +11,7 @@
     <dd><%= @shipping_mode.min_distance %>-<%= @shipping_mode.max_distance %> km</dd>
     <dt>Intervalo de peso de serviço:</dt>
     <dd><%= number_with_precision(@shipping_mode.min_weight.to_f/1000) %>-<%= @shipping_mode.max_weight/1000 %> kg</dd>
-    <dt>Taxa fixa:</dt>
+    <dt><%= ShippingMode.human_attribute_name(:fixed_fee) %>:</dt>
     <dd><%= number_to_currency(@shipping_mode.fixed_fee) %></dd>
     <dt>Status:</dt>
     <dd><%= t(@shipping_mode.status) %></dd>

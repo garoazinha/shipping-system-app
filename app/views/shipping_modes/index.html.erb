@@ -1,6 +1,8 @@
 <h2>Modalidades de transporte</h2>
 <br/>
-<%= link_to 'Cadastrar nova modalidade de transporte', new_shipping_mode_path %>
+<% if user_signed_in?  && current_user.admin? %>
+ <%= link_to 'Cadastrar nova modalidade de transporte', new_shipping_mode_path %>
+<% end %>
 
 <% @shipping_modes.active.each do |sm| %>
   <h4><%= link_to sm.name, shipping_mode_path(sm.id) %></h4>
@@ -9,7 +11,7 @@
     <dd><%= sm.min_distance %>-<%= sm.max_distance %> km</dd>
     <dt>Intervalo de peso:</dt>
     <dd><%= number_with_precision(sm.min_weight.to_f/1000) %>-<%= number_with_precision(sm.max_weight.to_f/1000, precision: 0) %> kg</dd>
-    <dt>Taxa fixa:</dt>
+    <dt><%= ShippingMode.human_attribute_name(:fixed_fee) %>:</dt>
     <dd><%= number_to_currency(sm.fixed_fee) %></dd>
   
   </dl>

@@ -1,0 +1,12 @@
+pt-BR:
+  activerecord:
+    model:
+      user:
+        one: Usuário
+        other: Usuários
+    attributes:
+      user:
+        role:
+          admin: Administrador
+          standard: Regular
+        name: Nome

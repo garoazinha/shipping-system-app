@@ -3,11 +3,14 @@ require 'rails_helper'
 describe 'Usuário edita modalidade de transporte' do
   it 'com sucesso' do
     #Arrange
+    user = User.create!(name: 'Mariana S', email: 'mari@sistemadefrete.com.br',
+                        password: 'password', role: :admin)
     sm = ShippingMode.create(name: 'Convencional', min_weight: 1, max_weight: 10000,
                           min_distance: 1, max_distance: 2000, fixed_fee: 1.00,
                           description: "Modalidade de transporte convencional")
 
     #Act
+    login_as(user)
     visit root_path
     click_on 'Modalidades de transporte'
     click_on 'Convencional'
@@ -22,11 +25,14 @@ describe 'Usuário edita modalidade de transporte' do
 
   it 'faltando informações obrigatórias' do
     #Arrange
+    user = User.create!(name: 'Mariana S', email: 'mari@sistemadefrete.com.br',
+                        password: 'password', role: :admin)
     sm = ShippingMode.create(name: 'Convencional', min_weight: 1, max_weight: 10000,
       min_distance: 1, max_distance: 2000, fixed_fee: 1.00,
       description: "Modalidade de transporte convencional")
 
     #Act
+    login_as(user)
     visit root_path
     click_on 'Modalidades de transporte'
     click_on 'Convencional'
@@ -42,11 +48,14 @@ describe 'Usuário edita modalidade de transporte' do
 
   it 'e página de edição tem campos preenchidos com informações antigas' do
     #Arrange
+    user = User.create!(name: 'Mariana S', email: 'mari@sistemadefrete.com.br',
+                        password: 'password', role: :admin)
     sm = ShippingMode.create(name: 'Convencional', min_weight: 1, max_weight: 10000,
                           min_distance: 1, max_distance: 2000, fixed_fee: 1.00,
                           description: "Modalidade de transporte convencional")
 
     #Act
+    login_as(user)
     visit root_path
     click_on 'Modalidades de transporte'
     click_on 'Convencional'
@@ -56,5 +65,24 @@ describe 'Usuário edita modalidade de transporte' do
     expect(page).to have_field('Nome', with: 'Convencional')
     expect(page).to have_field('Distância mínima de serviço', with: '1')
     expect(page).to have_field('Distância máxima de serviço', with: '2000')
+  end
+
+  it 'e não é administrador' do
+    #Arrange
+    user = User.create!(name: 'Mariana S', email: 'mari@sistemadefrete.com.br',
+      password: 'password', role: :standard)
+    sm = ShippingMode.create(name: 'Convencional', min_weight: 1, max_weight: 10000,
+                            min_distance: 1, max_distance: 2000, fixed_fee: 1.00,
+                            description: "Modalidade de transporte convencional")
+
+    #Act
+    login_as(user)
+    visit root_path
+    click_on 'Modalidades de transporte'
+    click_on 'Convencional'
+
+    #Assert
+    expect(page).not_to have_link('Editar')
+    
   end
 end

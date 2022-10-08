@@ -13,14 +13,26 @@
   <body>
 
     <header>
+      <div> 
+        <% if user_signed_in? %>
+         <p><%= current_user.name %></p>
+        <% end %>
+      </div>
       <h1>Sistema de Fretes Mari&Mari</h1>
       <nav>
         <%= link_to 'Modalidades de transporte', shipping_modes_path %>
+        <% if user_signed_in? %>
+          <%= button_to 'Sair', destroy_user_session_path, method: :delete %>
+        <% else %>
+          <%= link_to 'Login', new_user_session_path %>
+        <% end %>
       </nav>
+
     
     
     </header>
-    <%= notice %>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
     <%= yield %>
   </body>
 </html>

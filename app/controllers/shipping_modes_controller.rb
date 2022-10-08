@@ -1,4 +1,6 @@
 class ShippingModesController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :deactivate]
+  before_action :check_user_role, only: [:new, :create, :edit, :update, :deactivate]
   def index
     @shipping_modes = ShippingMode.all
   end
@@ -49,6 +51,12 @@ class ShippingModesController < ApplicationController
   
     redirect_to shipping_modes_path, notice: 'Modalidade de transporte desativada com sucesso'
 
+  end
+
+  def check_user_role
+    if current_user.standard?
+      redirect_to root_path, alert: 'Apenas usuários administradores têm acesso a essa ação'
+    end
   end
   
 end

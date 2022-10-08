@@ -3,8 +3,9 @@ require 'rails_helper'
 describe 'Usuário cadastra nova modalidade de transporte' do
   it 'com sucesso' do
     #Arrange
-
+    user = User.create!(name: 'Mariana S', email: 'mari@sistemadefrete.com.br', password: 'password', role: :admin)
     #Act
+    login_as(user)
     visit root_path
     click_on 'Modalidades de transporte'
     click_on 'Cadastrar nova modalidade de transporte'
@@ -29,8 +30,11 @@ describe 'Usuário cadastra nova modalidade de transporte' do
 
   it 'e não preenche os campos obrigatórios' do
     #Arrange
+    user = User.create!(name: 'Mariana S', email: 'mari@sistemadefrete.com.br',
+                        password: 'password', role: :admin)
 
     #Act
+    login_as(user)
     visit root_path
     click_on 'Modalidades de transporte'
     click_on 'Cadastrar nova modalidade de transporte'
@@ -49,4 +53,33 @@ describe 'Usuário cadastra nova modalidade de transporte' do
     expect(page).to have_content("Peso máximo de serviço não pode ficar em branco")
     
   end
+
+  it 'apenas se estiver autenticado' do
+    #Arrange
+    
+    #Act
+    visit root_path
+    click_on 'Modalidades de transporte'
+    
+    
+    #Assert
+    expect(page).not_to have_link('Cadastrar nova modalidade de transporte')
+  end
+
+  it 'apenas se usuário for administrador' do
+    #Arrange
+    user = User.create!(name: 'Pedro B', email: 'pedro@sistemadefrete.com.br',
+                       password: 'password', role: :standard)
+
+    #Act
+    login_as(user)
+    visit root_path
+    click_on 'Modalidades de transporte'
+    
+    #Assert
+    expect(page).not_to have_link('Cadastrar nova modalidade de transporte')
+    
+  end
+
+  
 end
