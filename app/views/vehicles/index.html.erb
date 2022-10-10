@@ -1,4 +1,13 @@
 <h2>Veículos</h2>
+
+<%= form_with(url: search_vehicles_url, method: :get) do |f| %>
+  <div>
+    <%= f.label :query, 'Consulta de veículos' %>
+    <%= f.text_field :query %>
+    <%= f.submit 'Buscar' %>
+  
+  </div>
+<% end %>
 <% if user_signed_in? && current_user.admin? %>
   <%= link_to 'Adicionar veículo', new_vehicle_path %>
 <% end %>

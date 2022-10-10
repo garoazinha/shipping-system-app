@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   end
   resources :vehicles, only: [:index, :new, :create, :show, :edit, :update] do
     resources :vehicle_shipping_modes, only: [:new, :create, :destroy]
+    get 'search', on: :collection
   end
 
 end

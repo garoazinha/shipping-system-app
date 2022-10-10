@@ -1,4 +1,7 @@
 pt-BR:
+  found:
+    one: encontrado
+    other: encontrados
   operational: Em operação
   maintenance: Em manutenção
   activerecord:

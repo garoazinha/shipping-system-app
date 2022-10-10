@@ -1,0 +1,21 @@
+<h2>Resultados da pesquisa: <%= @query %></h2>
+
+<%= @vehicles.count %> <%= Vehicle.model_name.human(count: @vehicles.count).downcase %> <%= t(:found, count: @vehicles.count) %>
+<div>
+<% @vehicles.each do |v| %>
+  <dl>
+    <dt><%= Vehicle.human_attribute_name(:plate_number) %></dt>
+    <dl><%= link_to v.plate_number.upcase, vehicle_path(v.id) %></dl>
+    <dt><%= Vehicle.human_attribute_name(:model) %>:</dt>
+    <dl><%= v.model %></dl>
+    <dt><%= Vehicle.human_attribute_name(:brand) %>:</dt>
+    <dl><%= v.brand %></dl>
+    <dt><%= Vehicle.human_attribute_name(:year) %>:</dt>
+    <dl><%= v.year %></dl>
+    <dt>Status: </dt>
+    <dd><%= t(v.activity) %></dd>
+  
+  
+  </dl>
+<% end %>
+</div>
