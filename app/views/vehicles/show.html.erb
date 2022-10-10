@@ -1,0 +1,32 @@
+<h2>Veículo de placa <%= @vehicle.plate_number.upcase %></h2>
+<%= link_to 'Editar', edit_vehicle_path(@vehicle.id) %>
+<div>
+  <dl>
+    <dt><%= Vehicle.human_attribute_name(:model) %>:</dt>
+    <dd><%= @vehicle.model %></dd>
+    <dt><%= Vehicle.human_attribute_name(:brand) %>:</dt>
+    <dd><%= @vehicle.brand %></dd>
+    <dt><%= Vehicle.human_attribute_name(:year) %>:</dt>
+    <dd><%= @vehicle.year %></dd>
+    <dt><%= Vehicle.human_attribute_name(:max_capacity) %>:</dt>
+    <dd><%= @vehicle.max_capacity %> kg</dd>
+    <dt>Status: </dt>
+    <dd><%= t(@vehicle.activity) %></dd>
+
+
+
+  </dl>
+</div>
+
+
+<h3>Modalidades de transporte disponíveis para veículo</h3>
+<% if @vehicle.shipping_modes.any? %>
+  <ul>
+    <% @vehicle.shipping_modes.each do |sm| %>
+      <% vsm = VehicleShippingMode.find_by(vehicle_id: @vehicle.id, shipping_mode_id: sm.id) %>
+
+      <li><%= sm.name %> | <%= button_to 'Desabilitar', vehicle_vehicle_shipping_mode_path(@vehicle.id, vsm.id), method: :delete %></li>
+    <% end %>
+  </ul>
+<% end %>
+<%= link_to 'Habilitar para modalidade de transporte', new_vehicle_vehicle_shipping_mode_path(vehicle_id: @vehicle.id) %>

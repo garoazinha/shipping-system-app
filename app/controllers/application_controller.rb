@@ -7,4 +7,10 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
   end
 
+  def check_user_role
+    if current_user.standard?
+      redirect_to root_path, alert: 'Apenas usuários administradores têm acesso a essa ação'
+    end
+  end
+
 end

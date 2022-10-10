@@ -1,8 +1,11 @@
 <% if @shipping_mode.errors.any? %>
   <div>
-    <% @shipping_mode.errors.each do |e| %>
-      <%= e.full_message %>
-    <% end %>
+    <ul>
+      <% @shipping_mode.errors.each do |e| %>
+        <li><%= e.full_message %></li>
+      <% end %>
+    </ul>
+    
   </div>
 <% end %>
 

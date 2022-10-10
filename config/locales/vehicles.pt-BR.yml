@@ -1,0 +1,18 @@
+pt-BR:
+  operational: Em operação
+  maintenance: Em manutenção
+  activerecord:
+    models:
+      vehicle:
+        one: Veículo
+        other: Veículos
+    attributes:
+      vehicle:
+        plate_number: 'Placa de identificação'
+        model: Modelo
+        brand: Marca
+        year: Ano
+        max_capacity: Capacidade máxima de carga
+        activity:
+          operational: Em operação
+          maintenance: Em manutenção

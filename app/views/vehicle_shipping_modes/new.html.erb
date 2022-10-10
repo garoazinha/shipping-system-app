@@ -1,0 +1,23 @@
+<h2>Associar veículo <%= @vehicle.plate_number.upcase %> a modalidade de transporte</h2>
+
+<% if @vehicle_shipping_mode.errors.any? %>
+  <div>
+    <ul>
+      <% @vehicle_shipping_mode.errors.each do |e| %>
+        <li><%= e.full_message %></li>
+      <% end %>
+    </ul>
+    
+  </div>
+<% end %>
+
+
+<%= form_with(model: [@vehicle, @vehicle_shipping_mode]) do |f| %>
+  <div>
+    <%= f.label :shipping_mode_id %>
+    <%= f.collection_select :shipping_mode_id, @shipping_modes, :id, :name %>
+
+    <%= f.submit 'Enviar' %>
+  </div>
+  
+<% end %>

@@ -1,0 +1,10 @@
+pt-BR:
+
+  activerecord:
+    models:
+      vehicle_shipping_mode:
+        one: Veículo
+        other: Veículos
+    attributes:
+      vehicle_shipping_mode:
+        shipping_mode_id: Modalidade de transporte

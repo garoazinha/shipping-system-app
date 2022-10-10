@@ -1,0 +1,62 @@
+<h2>Veículos</h2>
+<% if user_signed_in? && current_user.admin? %>
+  <%= link_to 'Adicionar veículo', new_vehicle_path %>
+<% end %>
+
+<div>
+  <table>
+    <thead>
+      <tr><h4>Veículos operacionais</h4></tr>
+      <tr>
+        <th>Placa</th>
+        <th>Status</th>
+        <th>Modelo</th>
+        <th>Marca</th>
+        <th>Ano</th>
+      </tr>
+       
+    </thead>
+    <tbody>
+      <tr>
+        <% @operational_vehicles.each do |ov| %>
+          <td><%= link_to ov.plate_number.upcase, vehicle_path(ov.id) %></td>
+          <td><%= t(ov.activity) %></td>
+          <td><%= ov.model %></td>
+          <td><%= ov.brand %></td>
+          <td><%= ov.year %></td>
+        <% end %>
+      </tr>
+    
+    </tbody>
+    
+
+</div>
+
+<div>
+  <table>
+
+    <thead>
+      <tr><h4>Veículos em manutenção</h4></tr>
+      <tr>
+        <th>Placa</th>
+        <th>Status</th>
+        <th>Modelo</th>
+        <th>Marca</th>
+        <th>Ano</th>
+      </tr>
+       
+    </thead>
+    <tbody>
+      <tr>
+        <% @maintenance_vehicles.each do |ov| %>
+          <td><%= link_to ov.plate_number.upcase, vehicle_path(ov.id) %></td>
+          <td><%= t(ov.activity) %></td>
+          <td><%= ov.model %></td>
+          <td><%= ov.brand %></td>
+          <td><%= ov.year %></td>
+        <% end %>
+      </tr>
+    
+    </tbody>
+
+</div>

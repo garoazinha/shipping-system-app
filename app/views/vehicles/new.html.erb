@@ -1,0 +1,45 @@
+<h2>Adicionar veículo</h2>
+<% if @vehicle.errors.any? %>
+  <div>
+    <ul>
+      <% @vehicle.errors.each do |e| %>
+        <li><%= e.full_message %></li>
+      <% end %>
+    </ul>
+    
+  </div>
+<% end %>
+
+<%= form_with(model: @vehicle) do |f| %>
+  <div>
+    <%= f.label :plate_number %>
+    <%= f.text_field :plate_number %>
+  </div>
+  <div>
+    <%= f.label :model %>
+    <%= f.text_field :model %>
+  </div>
+  <div>
+    <%= f.label :brand %>
+    <%= f.text_field :brand %>
+  </div>
+  <div>
+    <%= f.label :year %>
+    <%= f.number_field :year, in: 1990..Date.today.year  %>
+  </div>
+  <div>
+    <%= f.label :max_capacity %>
+    <%= f.number_field :max_capacity %>
+  </div>
+  <div> 
+    <%= f.radio_button :activity, "operational" %>
+    <%= f.label :operational, "Em operação" %>
+    <%= f.radio_button :activity, "maintenance" %>
+    <%= f.label :maintenance, "Em manutenção" %>
+
+  </div>
+
+  <%= f.submit 'Enviar' %>
+  
+
+<% end %>

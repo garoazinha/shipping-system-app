@@ -5,4 +5,8 @@ Rails.application.routes.draw do
   resources :shipping_modes, only: [:index, :new, :create, :show, :edit, :update] do
     post 'deactivate', on: :member
   end
+  resources :vehicles, only: [:index, :new, :create, :show, :edit, :update] do
+    resources :vehicle_shipping_modes, only: [:new, :create, :destroy]
+  end
+
 end

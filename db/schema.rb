@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_08_032325) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_09_225612) do
   create_table "shipping_modes", force: :cascade do |t|
     t.string "name"
     t.integer "min_distance"
@@ -38,4 +38,26 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_08_032325) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "vehicle_shipping_modes", force: :cascade do |t|
+    t.integer "vehicle_id", null: false
+    t.integer "shipping_mode_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shipping_mode_id"], name: "index_vehicle_shipping_modes_on_shipping_mode_id"
+    t.index ["vehicle_id"], name: "index_vehicle_shipping_modes_on_vehicle_id"
+  end
+
+  create_table "vehicles", force: :cascade do |t|
+    t.string "plate_number"
+    t.string "model"
+    t.string "brand"
+    t.integer "year"
+    t.integer "max_capacity"
+    t.integer "activity", default: 5
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "vehicle_shipping_modes", "shipping_modes"
+  add_foreign_key "vehicle_shipping_modes", "vehicles"
 end

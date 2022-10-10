@@ -48,15 +48,11 @@ class ShippingModesController < ApplicationController
   def deactivate
     @shipping_mode = ShippingMode.find(params[:id])
     @shipping_mode.inactive!
-  
+
     redirect_to shipping_modes_path, notice: 'Modalidade de transporte desativada com sucesso'
 
   end
 
-  def check_user_role
-    if current_user.standard?
-      redirect_to root_path, alert: 'Apenas usuários administradores têm acesso a essa ação'
-    end
-  end
+  
   
 end
