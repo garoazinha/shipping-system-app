@@ -52,6 +52,17 @@ class ShippingModesController < ApplicationController
     redirect_to shipping_modes_path, notice: 'Modalidade de transporte desativada com sucesso'
 
   end
+  
+  def disable_delivery_times
+    @shipping_mode = ShippingMode.find(params[:id])
+    @delivery_times = @shipping_mode.delivery_times
+    @delivery_times.each do |dt|
+      dt.inactive!
+      
+    end
+    redirect_to shipping_mode_delivery_times_path(@shipping_mode.id), notice: "Prazos desabilitados"
+    
+  end
 
   
   

@@ -1,0 +1,44 @@
+<h2>Editar prazos para <%= @shipping_mode.name %></h2>
+<% if @shipping_mode_delivery_time.errors.any? %>
+  <div>
+    <ul>
+      <% @shipping_mode_delivery_time.errors.each do |e| %>
+        <li><%= e.full_message %></li>
+      <% end %>
+    </ul>
+    
+  </div>
+<% end %>
+
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th><%= DeliveryTime.human_attribute_name(:min_distance) %></th>
+        <th><%= DeliveryTime.human_attribute_name(:max_distance) %></th>
+        <th><%= DeliveryTime.human_attribute_name(:estimated_delivery_time) %></th>
+      <tr>
+    </thead>
+    <% @delivery_times.active.each do |dt| %>
+      <% if dt == @shipping_mode_delivery_time %>
+        <tr>
+          <%= form_with(model: [@shipping_mode, @shipping_mode_delivery_time]) do |f| %>
+            <td><%= dt.min_distance %></td>
+            <td><%= dt.max_distance %></td>
+            <td> <%= f.label :estimated_delivery_time, class: 'hide_label' %><%= f.number_field :estimated_delivery_time %></td>
+            <td><%= f.submit 'Atualizar' %></td>
+          <% end %>
+        </tr>
+      <% else %>
+        <tr>
+          <td><%= dt.min_distance %></td>
+          <td><%= dt.max_distance %></td>
+          <td><%= dt.estimated_delivery_time %></td>
+          <td></td>
+        </tr>
+      <% end %>
+    <% end %>
+  
+  </table>
+  
+</div>

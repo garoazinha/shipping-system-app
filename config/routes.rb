@@ -4,10 +4,13 @@ Rails.application.routes.draw do
   root to: 'home#index'
   resources :shipping_modes, only: [:index, :new, :create, :show, :edit, :update] do
     post 'deactivate', on: :member
+    resources 'delivery_times', only: [:new, :create, :index, :edit, :update]
+    post 'disable_delivery_times', on: :member
   end
   resources :vehicles, only: [:index, :new, :create, :show, :edit, :update] do
     resources :vehicle_shipping_modes, only: [:new, :create, :destroy]
     get 'search', on: :collection
+  
   end
 
 end

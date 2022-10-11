@@ -1,0 +1,13 @@
+pt-BR:
+  active: Ativo
+  inactive: Desativado
+  activerecord:
+    models:
+      delivery_time:
+        one: Prazo de entrega
+        other: Prazos de entrega
+    attributes:
+      delivery_time:
+        min_distance: Distância mínima
+        max_distance: Distância máxima
+        estimated_delivery_time: Prazo estimado

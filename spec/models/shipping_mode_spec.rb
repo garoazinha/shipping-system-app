@@ -100,10 +100,10 @@ RSpec.describe ShippingMode, type: :model do
       expect(result).to be false
     end
 
-    it 'Distância mínima deve ser maior que zero' do
+    it 'Distância mínima deve ser igual ou maior que zero' do
       #Arrange
       sm = ShippingMode.new(name: 'Convencional', min_weight: 1, max_weight: 100_000,
-                                 min_distance: 0, max_distance: 2000, fixed_fee: 1.50,
+                                 min_distance: -1, max_distance: 2000, fixed_fee: 1.50,
                                  description: "Modalidade de transporte convencional")
 
       #Act
@@ -114,10 +114,10 @@ RSpec.describe ShippingMode, type: :model do
       expect(result).to be false
     end
 
-    it 'Peso mínimo deve ser maior que zero' do
+    it 'Peso mínimo deve ser igual ou maior que zero' do
       #Arrange
       sm = ShippingMode.new(name: 'Convencional', min_weight: 0, max_weight: 100_000,
-                                 min_distance: 1, max_distance: 2000, fixed_fee: 1.50,
+                                 min_distance: -1, max_distance: 2000, fixed_fee: 1.50,
                                  description: "Modalidade de transporte convencional")
 
       #Act

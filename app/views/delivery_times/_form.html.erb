@@ -1,0 +1,27 @@
+<% if @shipping_mode_delivery_time.errors.any? %>
+  <div>
+    <ul>
+      <% @shipping_mode_delivery_time.errors.each do |e| %>
+        <li><%= e.full_message %></li>
+      <% end %>
+    </ul>
+    
+  </div>
+<% end %>
+
+
+<%= form_with(model: [@shipping_mode, @shipping_mode_delivery_time]) do |f| %>
+  <div>
+    <%= f.label :min_distance %>
+    <%= f.number_field :min_distance %> km
+  </div>
+  <div>
+    <%= f.label :max_distance %>
+    <%= f.number_field :max_distance %> km
+  </div>
+  <div>
+    <%= f.label :estimated_delivery_time %>
+    <%= f.number_field :estimated_delivery_time %> h
+  </div>
+  <%= f.submit 'Enviar' %>
+<% end %>
