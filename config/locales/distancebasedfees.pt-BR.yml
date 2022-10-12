@@ -1,0 +1,12 @@
+pt-BR:
+
+  activerecord:
+    models:
+      distance_based_fee:
+        one: Taxa de acordo com distância
+        other: Taxas de acordo com distância
+    attributes:
+      distance_based_fee:
+        min_distance: Distância mínima
+        max_distance: Distância máxima
+        fee: Taxa

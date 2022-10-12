@@ -19,7 +19,7 @@
         <th><%= DeliveryTime.human_attribute_name(:estimated_delivery_time) %></th>
       <tr>
     </thead>
-    <% @delivery_times.active.each do |dt| %>
+    <% @delivery_times.each do |dt| %>
       <% if dt == @shipping_mode_delivery_time %>
         <tr>
           <%= form_with(model: [@shipping_mode, @shipping_mode_delivery_time]) do |f| %>

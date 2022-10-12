@@ -45,5 +45,14 @@ class DeliveryTimesController < ApplicationController
       render :edit
     end
   end
+
+  def disable
+    @shipping_mode = ShippingMode.find(params[:shipping_mode_id])
+    @delivery_times = @shipping_mode.delivery_times
+    @delivery_times.destroy_all
+
+    redirect_to shipping_mode_delivery_times_path(@shipping_mode.id), notice: "Prazos desabilitados"
+    
+  end
   
 end

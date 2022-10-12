@@ -1,0 +1,31 @@
+<h2>Taxas de serviço de acordo com distância para modalidade <%= @shipping_mode.name %></h2>
+
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th><%= DistanceBasedFee.human_attribute_name(:min_distance) %> (km)</th>
+        <th><%= DistanceBasedFee.human_attribute_name(:max_distance) %> (km)</th>
+        <th><%= DistanceBasedFee.human_attribute_name(:fee) %> (R$)</th>
+      <tr>
+    </thead>
+    <% @distance_based_fees.each do |dbf| %>
+      <tr>
+        <td><%= dbf.min_distance %></td>
+        <td><%= dbf.max_distance %></td>
+        <td><%= number_to_currency(dbf.fee, unit: "") %></td>
+        <% if user_signed_in? && current_user.admin? %>
+          <td><%= link_to 'Editar', edit_shipping_mode_distance_based_fee_path(@shipping_mode.id, dbf.id) %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  
+  </table>
+  
+</div>
+
+<% if user_signed_in? && current_user.admin? %>
+  <h3>Cadastro de novas configurações</h3>
+  <%= button_to 'Deletar configuração', disable_shipping_mode_distance_based_fees_path(@shipping_mode.id) %>
+  <%= render 'form' %>
+<% end %>

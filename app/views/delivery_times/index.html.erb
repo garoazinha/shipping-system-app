@@ -4,12 +4,12 @@
   <table>
     <thead>
       <tr>
-        <th><%= DeliveryTime.human_attribute_name(:min_distance) %></th>
-        <th><%= DeliveryTime.human_attribute_name(:max_distance) %></th>
-        <th><%= DeliveryTime.human_attribute_name(:estimated_delivery_time) %></th>
+        <th><%= DeliveryTime.human_attribute_name(:min_distance) %> (km)</th>
+        <th><%= DeliveryTime.human_attribute_name(:max_distance) %> (km)</th>
+        <th><%= DeliveryTime.human_attribute_name(:estimated_delivery_time) %> (h)</th>
       <tr>
     </thead>
-    <% @delivery_times.active.each do |dt| %>
+    <% @delivery_times.each do |dt| %>
       <tr>
         <td><%= dt.min_distance %></td>
         <td><%= dt.max_distance %></td>
@@ -26,6 +26,6 @@
 
 <% if user_signed_in? && current_user.admin? %>
   <h3>Cadastro de novas configurações</h3>
-  <%= button_to 'Deletar prazos', disable_delivery_times_shipping_mode_path(@shipping_mode.id) %>
+  <%= button_to 'Deletar prazos', disable_shipping_mode_delivery_times_path(@shipping_mode.id) %>
   <%= render 'form' %>
 <% end %>

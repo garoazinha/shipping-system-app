@@ -5,8 +5,9 @@ class ServiceOrder < ApplicationRecord
   accepts_nested_attributes_for :full_addresses
   enum status: {pending: 4, initiated: 6, ended: 9}
   before_validation :generate_code, on: :create
+  validates :full_addresses, length: { is: 2 }
   validates_associated :full_addresses
-  validate :check_addresses_presence
+
   validate :check_if_one_recipient_one_shipper
   private
 
@@ -14,11 +15,7 @@ class ServiceOrder < ApplicationRecord
     self.code = SecureRandom.alphanumeric(15).upcase
   end
 
-  def check_addresses_presence
-    if self.full_addresses.size != 2
-      self.errors.add :base, :invalid, message: "Ordem de serviço deve ter dois endereços"
-    end
-  end
+
 
   def check_if_one_recipient_one_shipper
     if self.full_addresses.first.recipient? && self.full_addresses.last.recipient?
