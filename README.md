@@ -7,3 +7,5 @@ Um usuário não autenticado e um usuário regular podem ver as modalidades de t
 Aplicação também possibilita a criação, edição e associação a modalidades de transporte de veículos, que devem ter informação de placa de identificação, marca, modelo, ano e capacidade máxima. 
 É possível ainda associar diversas modalidades de transporte a um veículo.
 
+Um usuário administrador pode criar uma ordem de serviço, que deve conter dois endereços, um de retirada e um de destino. Ao criar a ordem de serviço um código é criado automaticamente. 
+
