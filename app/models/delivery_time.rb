@@ -1,13 +1,14 @@
 class DeliveryTime < ApplicationRecord
   belongs_to :shipping_mode
+  validates :max_distance, :min_distance, :estimated_delivery_time, presence: true
   validate :check_if_intervals_intersect, on: :create
   validates :max_distance, comparison: { greater_than: :min_distance }
-  #validates :estimated_delivery_time, uniqueness: { scope: :status }, on: :create
+
   enum status: { active: 2, inactive: 9 }
-  validate :check_uniqueness_in_update
+  validate :check_uniqueness_of_estimated_delivery_time
 
   private
-  def check_uniqueness_in_update 
+  def check_uniqueness_of_estimated_delivery_time
     sm = self.shipping_mode
     sm.delivery_times.active.reload.each do |dt|  
       if self.active? && dt.estimated_delivery_time == self.estimated_delivery_time

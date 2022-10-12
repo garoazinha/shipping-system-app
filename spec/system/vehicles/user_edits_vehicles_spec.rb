@@ -78,5 +78,27 @@ describe 'Usuário edita informação de veículos' do
     
     
   end
+
+  it 'trocando veículo de operacional para em manutenção' do
+     #Arrange
+    user = User.create(name: 'Mariana Souza', email: 'mari@sistemadefrete.com.br', 
+                      password: 'password', role: :admin)
+    car_a = Vehicle.create(plate_number: 'BRA0Z21', model: 'Sprinter', brand: 'Mercedes-Benz',
+                           year: 2017, max_capacity: 1500, activity: :operational)
+
+    car_b = Vehicle.create(plate_number: 'PRA0A10', model: 'Ducato', brand: 'Fiat',
+                         year: 2018, max_capacity: 1300, activity: :maintenance)
+    #Act
+    login_as(user)
+    visit root_path
+    click_on 'Veículos'
+    click_on 'BRA0Z21'
+    click_on 'Editar'
+    choose option: :maintenance
+    click_on 'Enviar'
+    #assert
+    expect(page).to have_content('Status: Em manutenção')
+    
+  end
 end
 

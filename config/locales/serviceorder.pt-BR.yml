@@ -1,0 +1,20 @@
+pt-BR:
+  pending: Pendente
+  initialized: Iniciado
+  ended: Fechado
+  activerecord:
+    models:
+      service_order:
+        one: Ordem de serviço
+        other: Ordens de serviço
+    attributes:
+      service_order:
+        product_code : Código
+        product_width: Largura
+        product_height: Altura
+        product_depth: Profundidade
+        product_weight: Peso
+        recipient_name: Nome
+        recipient_registration_number: CPF
+        distance: Distância
+        status: Estado

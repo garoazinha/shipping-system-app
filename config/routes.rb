@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   
   end
 
+  resources :service_orders, only: [:index, :new, :create, :show]
+
 end

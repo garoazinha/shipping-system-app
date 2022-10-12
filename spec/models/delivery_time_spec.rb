@@ -2,6 +2,42 @@ require 'rails_helper'
 
 RSpec.describe DeliveryTime, type: :model do
   describe 'valido?' do
+    it 'Distância máxima é obrigatória' do
+      #Arrange
+      sm = ShippingMode.create!(name: 'Express', min_distance: 0, max_distance: 1000,
+                                min_weight: 1, max_weight: 20000,
+                                fixed_fee: 1.50, status: :active)
+      smdt = sm.delivery_times.build(min_distance: nil, max_distance: 100, estimated_delivery_time: 24 )
+      #Act
+      result = smdt.valid?
+      #Assert
+      expect(result).to be false
+    end
+
+    it 'Distância máxima é obrigatória' do
+      #Arrange
+      sm = ShippingMode.create!(name: 'Express', min_distance: 0, max_distance: 1000,
+                                min_weight: 1, max_weight: 20000,
+                                fixed_fee: 1.50, status: :active)
+      smdt = sm.delivery_times.build(min_distance: 0, max_distance: nil, estimated_delivery_time: 24 )
+      #Act
+      result = smdt.valid?
+      #Assert
+      expect(result).to be false
+    end
+
+    it 'Prazo estimado é obrigatório' do
+      #Arrange
+      sm = ShippingMode.create!(name: 'Express', min_distance: 0, max_distance: 1000,
+                                min_weight: 1, max_weight: 20000,
+                                fixed_fee: 1.50, status: :active)
+      smdt = sm.delivery_times.build(min_distance: 0, max_distance: nil, estimated_delivery_time: nil )
+      #Act
+      result = smdt.valid?
+      #Assert
+      expect(result).to be false
+    end
+
     it 'Distância máxima tem de ser maior que distância mínima' do
       #Arrange
       sm = ShippingMode.create!(name: 'Express', min_distance: 0, max_distance: 1000,

@@ -14,8 +14,9 @@
         <td><%= dt.min_distance %></td>
         <td><%= dt.max_distance %></td>
         <td><%= dt.estimated_delivery_time %></td>
-    
-        <td><%= link_to 'Editar', edit_shipping_mode_delivery_time_path(@shipping_mode.id, dt.id) %></td>
+        <% if user_signed_in? && current_user.admin? %>
+          <td><%= link_to 'Editar', edit_shipping_mode_delivery_time_path(@shipping_mode.id, dt.id) %></td>
+        <% end %>
       </tr>
     <% end %>
   

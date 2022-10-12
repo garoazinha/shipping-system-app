@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_11_025714) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_12_012858) do
   create_table "delivery_times", force: :cascade do |t|
     t.integer "min_distance"
     t.integer "max_distance"
@@ -20,6 +20,33 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_11_025714) do
     t.datetime "updated_at", null: false
     t.integer "status", default: 2
     t.index ["shipping_mode_id"], name: "index_delivery_times_on_shipping_mode_id"
+  end
+
+  create_table "full_addresses", force: :cascade do |t|
+    t.integer "service_order_id", null: false
+    t.string "zip_code"
+    t.string "city"
+    t.string "state"
+    t.string "address"
+    t.integer "belonging_to", default: 5
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["service_order_id"], name: "index_full_addresses_on_service_order_id"
+  end
+
+  create_table "service_orders", force: :cascade do |t|
+    t.string "product_code"
+    t.integer "product_width"
+    t.integer "product_height"
+    t.integer "product_depth"
+    t.integer "product_weight"
+    t.string "recipient_name"
+    t.string "recipient_registration_number"
+    t.integer "distance"
+    t.integer "status", default: 4
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "code"
   end
 
   create_table "shipping_modes", force: :cascade do |t|
@@ -70,6 +97,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_11_025714) do
   end
 
   add_foreign_key "delivery_times", "shipping_modes"
+  add_foreign_key "full_addresses", "service_orders"
   add_foreign_key "vehicle_shipping_modes", "shipping_modes"
   add_foreign_key "vehicle_shipping_modes", "vehicles"
 end

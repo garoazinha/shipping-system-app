@@ -1,0 +1,49 @@
+<h2><%= ServiceOrder.model_name.human %></h2>
+
+
+
+<h4>Dados do produto</h4>
+<dl>
+  <dt><%= ServiceOrder.human_attribute_name(:product_code) %>:</dt>
+  <dd><%= @service_order.product_code %></dd>
+  <dt>Dimensões: </dt>
+  <dd><%= @service_order.product_width %>cm x <%= @service_order.product_height %>cm x <%= @service_order.product_depth %>cm</dd>
+  <dt><%= ServiceOrder.human_attribute_name(:product_weight) %>:</dt>
+  <dd><%= @service_order.product_weight %> g</dd>
+</dl>
+
+<h4>Endereço de retirada</h4>
+<dl>
+  <dt><%= FullAddress.human_attribute_name(:address) %></dt>
+  <dd><%= @service_order.full_addresses.shipper.first.address %></dd>
+  <dt><%= FullAddress.human_attribute_name(:city) %></dt>
+  <dd><%= @service_order.full_addresses.shipper.first.city %></dd>
+  <dt><%= FullAddress.human_attribute_name(:state) %></dt>
+  <dd><%= @service_order.full_addresses.shipper.first.state %></dd>
+  <dt><%= FullAddress.human_attribute_name(:zip_code) %></dt>
+  <dd><%= @service_order.full_addresses.shipper.first.zip_code %></dd>
+  
+</dl>
+
+<h4>Dados do destinatário</h4>
+<dl>
+  <dt><%= ServiceOrder.human_attribute_name(:recipient_name) %>:</dt>
+  <dd><%= @service_order.recipient_name %></dd>
+  <dt><%= ServiceOrder.human_attribute_name(:recipient_registration_number) %>:</dt>
+  <dd><%= @service_order.recipient_registration_number %></dd>
+  <dt><%= FullAddress.human_attribute_name(:address) %></dt>
+  <dd><%= @service_order.full_addresses.recipient.first.address %></dd>
+  <dt><%= FullAddress.human_attribute_name(:city) %></dt>
+  <dd><%= @service_order.full_addresses.recipient.first.city %></dd>
+  <dt><%= FullAddress.human_attribute_name(:state) %></dt>
+  <dd><%= @service_order.full_addresses.recipient.first.state %></dd>
+  <dt><%= FullAddress.human_attribute_name(:zip_code) %></dt>
+  <dd><%= @service_order.full_addresses.recipient.first.zip_code %></dd>
+  <dt><%= ServiceOrder.human_attribute_name(:distance) %>:</dt>
+  <dd><%= @service_order.distance %></dd>
+ 
+
+  
+</dl>
+
+<%= t(@service_order.status) %>

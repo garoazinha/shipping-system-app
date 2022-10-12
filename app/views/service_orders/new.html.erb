@@ -1,0 +1,92 @@
+<h2>Criar ordem de serviço</h2>
+
+
+<%= form_with(model: @service_order) do |f| %>
+  <div class="product">
+  <h3>Dados do produto</h3>
+    <div>
+    <%= f.label :product_code %>
+    <%= f.text_field :product_code %>
+    </div>
+    <div>
+    <%= f.label :product_width %>
+    <%= f.number_field :product_width %> cm
+    </div>
+    <div>
+    <%= f.label :product_height %>
+    <%= f.number_field :product_height %> cm
+    </div>
+    <div>
+    <%= f.label :product_depth %>
+    <%= f.number_field :product_depth %> cm 
+    </div>
+    <div>
+    <%= f.label :product_weight %>
+    <%= f.number_field :product_weight %> g
+    </div>
+  </div>
+  <div class="shipper">
+  <h3>Dados de retirada</h3>
+    <%= f.fields_for :full_addresses do |af| %>
+      <%= af.hidden_field :belonging_to, value: "shipper" %>
+      <div>
+      <%= af.label :city %>
+      <%= af.text_field :city %>
+      </div>
+      <div>
+      <%= af.label :state %>
+      <%= af.text_field :state %>
+      </div>
+      <div>
+      <%= af.label :address %>
+      <%= af.text_field :address %>
+      </div>
+      <div>
+      <%= af.label :zip_code %>
+      <%= af.text_field :zip_code %>
+      </div>
+
+    <% end %>
+  
+  </div>
+  <div class="recipient">
+    <h3>Dados de destinatário</h3>
+    
+    <div>
+    <%= f.label :recipient_name %>
+    <%= f.text_field :recipient_name %>
+    </div>
+    <div>
+    <%= f.label :recipient_registration_number %>
+    <%= f.text_field :recipient_registration_number %>
+    </div>
+    <%= f.fields_for :full_addresses do |af| %>
+      <%= af.hidden_field :belonging_to, value: "recipient" %>
+      <div>
+      <%= af.label :city %>
+      <%= af.text_field :city %>
+      </div>
+      <div>
+      <%= af.label :state %>
+      <%= af.text_field :state %>
+      </div>
+      <div>
+      <%= af.label :address %>
+      <%= af.text_field :address %>
+      </div>
+      <div>
+      <%= af.label :zip_code %>
+      <%= af.text_field :zip_code %>
+      </div>
+
+    <% end %>
+    <div>
+    <%= f.label :distance %>
+    <%= f.text_field :distance %> km
+    </div>
+
+
+
+  </div>
+  <%= f.submit 'Enviar' %>
+<% end %>

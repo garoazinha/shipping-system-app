@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
 
   def check_user_role
     if current_user.standard?
-      redirect_to root_path, alert: 'Apenas usuários administradores têm acesso a essa ação'
+       return redirect_to root_path, alert: 'Apenas usuários administradores têm acesso a essa ação'
     end
   end
 

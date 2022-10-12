@@ -1,0 +1,4 @@
+<h2>Ordens de serviço</h2>
+<% if user_signed_in? && current_user.admin? %>
+  <%= link_to 'Adicionar ordem de serviço', new_service_order_path %>
+<% end %>

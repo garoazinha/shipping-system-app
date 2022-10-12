@@ -1,0 +1,13 @@
+pt-BR:
+
+  activerecord:
+    models:
+      full_address:
+        one: Endereço completo
+        other: Endereços completos
+    attributes:
+      full_address:
+        zip_code: CEP
+        city: Cidade
+        state: Estado
+        address: Endereço
