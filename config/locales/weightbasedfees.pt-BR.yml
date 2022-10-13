@@ -1,0 +1,11 @@
+pt-BR:
+  activerecord:
+    models:
+      weight_based_fee:
+        one: Taxa de acordo com peso
+        other: Taxas de acordo com pesos
+    attributes:
+      weight_based_fee:
+        min_distance: Distância mínima
+        max_distance: Distância máxima
+        fee_per_km: Taxa

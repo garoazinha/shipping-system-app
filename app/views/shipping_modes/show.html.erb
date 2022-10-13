@@ -6,6 +6,7 @@
 <% end %>
 <%= link_to 'Prazos', shipping_mode_delivery_times_path(@shipping_mode.id) %>
 <%= link_to 'Taxas de acordo com distância', shipping_mode_distance_based_fees_path(@shipping_mode.id) %>
+<%= link_to 'Taxas de acordo com peso', shipping_mode_weight_based_fees_path(@shipping_mode.id) %>
 
 <p><%= @shipping_mode.description %></p>
 

@@ -50,6 +50,18 @@ RSpec.describe DeliveryTime, type: :model do
       expect(result).to be false
     end
 
+    it 'Distância mínima tem de ser maior ou igual a zero' do
+      #Arrange
+      sm = ShippingMode.create!(name: 'Express', min_distance: 0, max_distance: 1000,
+                                min_weight: 1, max_weight: 20000,
+                                fixed_fee: 1.50, status: :active)
+      smdt = sm.delivery_times.build(min_distance: -1, max_distance: 50, estimated_delivery_time: 24 )
+      #Act
+      result = smdt.valid?
+      #Assert
+      expect(result).to be false
+    end
+
     it 'Prazo deve ser único' do
       #Arrange
       sm = ShippingMode.create!(name: 'Express', min_distance: 0, max_distance: 1000,

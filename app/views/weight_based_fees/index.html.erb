@@ -1,0 +1,29 @@
+<h2>Taxas de serviço de acordo com peso para modalidade <%= @shipping_mode.name %></h2>
+
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th><%= DistanceBasedFee.human_attribute_name(:min_distance) %> (km)</th>
+        <th><%= DistanceBasedFee.human_attribute_name(:max_distance) %> (km)</th>
+        <th><%= DistanceBasedFee.human_attribute_name(:fee_per_km) %> (R$)</th>
+      <tr>
+    </thead>
+    <% @weight_based_fees.each do |wbf| %>
+      <tr>
+        <td><%= wbf.min_distance %></td>
+        <td><%= wbf.max_distance %></td>
+        <td><%= number_to_currency(wbf.fee_per_km, unit: "") %></td>
+        <% if user_signed_in? && current_user.admin? %>
+          <td><%= link_to 'Editar', edit_shipping_mode_weight_based_fee_path(@shipping_mode.id, wbf.id) %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  
+  </table>
+</div>
+<% if user_signed_in? && current_user.admin? %>
+  <h3>Cadastro de novas configurações</h3>
+  <%= button_to 'Deletar configuração', disable_shipping_mode_weight_based_fees_path(@shipping_mode.id) %>
+  <%= render 'form' %>
+<% end %>

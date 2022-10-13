@@ -1,0 +1,27 @@
+<h2>Editar configuração de preços de acordo com peso</h2>
+
+<div>
+  <table>
+    <thead>
+      <tr>
+        <th><%= WeightBasedFee.human_attribute_name(:min_distance) %> (km)</th>
+        <th><%= WeightBasedFee.human_attribute_name(:max_distance) %> (km)</th>
+        <th><%= WeightBasedFee.human_attribute_name(:fee_per_km) %> (R$/km)</th>
+      <tr>
+    </thead>
+    <% @weight_based_fees.each do |wbf| %>
+      <% if wbf == @shipping_mode_weight_based_fee %>
+        <%= form_with(model: [@shipping_mode, @shipping_mode_weight_based_fee]) do |f| %>
+          <tr>
+            <td><%= wbf.min_distance %></td>
+            <td><%= wbf.max_distance %></td>
+            <td><%= f.label :fee_per_km, class: "hide_label" %> <%= f.number_field :fee_per_km, step: 0.01 %></td>
+            <td><%= f.submit 'Atualizar' %></td>
+          </tr>
+        <% end %>
+      <% end %>
+    <% end %>
+  
+  </table>
+  
+</div>

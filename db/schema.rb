@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_12_212621) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_13_004615) do
   create_table "delivery_times", force: :cascade do |t|
     t.integer "min_distance"
     t.integer "max_distance"
@@ -24,7 +24,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_12_212621) do
   create_table "distance_based_fees", force: :cascade do |t|
     t.integer "min_distance"
     t.integer "max_distance"
-    t.decimal "fee"
+    t.decimal "fee", precision: 5, scale: 2
     t.integer "shipping_mode_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -105,9 +105,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_12_212621) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "weight_based_fees", force: :cascade do |t|
+    t.integer "min_distance"
+    t.integer "max_distance"
+    t.decimal "fee_per_km", precision: 5, scale: 2
+    t.integer "shipping_mode_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["shipping_mode_id"], name: "index_weight_based_fees_on_shipping_mode_id"
+  end
+
   add_foreign_key "delivery_times", "shipping_modes"
   add_foreign_key "distance_based_fees", "shipping_modes"
   add_foreign_key "full_addresses", "service_orders"
   add_foreign_key "vehicle_shipping_modes", "shipping_modes"
   add_foreign_key "vehicle_shipping_modes", "vehicles"
+  add_foreign_key "weight_based_fees", "shipping_modes"
 end

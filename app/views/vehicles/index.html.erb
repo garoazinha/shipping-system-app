@@ -27,7 +27,7 @@
     </thead>
     <tbody>
       
-      <% @operational_vehicles.each do |ov| %>
+      <% @vehicles.operational.each do |ov| %>
         <tr>
           <td><%= link_to ov.plate_number.upcase, vehicle_path(ov.id) %></td>
           <td><%= t(ov.activity) %></td>
@@ -45,7 +45,6 @@
 
 <div>
   <table>
-
     <thead>
       <tr><h4>Veículos em manutenção</h4></tr>
       <tr>
@@ -59,7 +58,7 @@
     </thead>
     <tbody>
       
-      <% @maintenance_vehicles.each do |ov| %>
+      <% @vehicles.maintenance.each do |ov| %>
         <tr>
           <td><%= link_to ov.plate_number.upcase, vehicle_path(ov.id) %></td>
           <td><%= t(ov.activity) %></td>
@@ -68,8 +67,9 @@
           <td><%= ov.year %></td>
         </tr>
       <% end %>
-      
+     
     
     </tbody>
+    
 
 </div>

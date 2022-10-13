@@ -2,6 +2,7 @@ class ShippingMode < ApplicationRecord
 
   has_many :delivery_times
   has_many :distance_based_fees
+  has_many :weight_based_fees
   has_many :vehicle_shipping_modes
   has_many :vehicles, through: :vehicle_shipping_modes
   enum status: {active: 10, inactive: 20}

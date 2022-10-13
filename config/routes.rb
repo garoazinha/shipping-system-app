@@ -10,6 +10,9 @@ Rails.application.routes.draw do
     resources 'distance_based_fees', only: [ :create, :index, :edit, :update] do
       post 'disable', on: :collection
     end
+    resources 'weight_based_fees', only: [ :create, :index, :edit, :update] do
+      post 'disable', on: :collection
+    end
     
   end
   resources :vehicles, only: [:index, :new, :create, :show, :edit, :update] do

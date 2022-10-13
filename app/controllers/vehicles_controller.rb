@@ -2,8 +2,8 @@ class VehiclesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :index]
   before_action :check_user_role, only: [:new, :create, :edit, :update]
   def index
-    @operational_vehicles =  Vehicle.operational
-    @maintenance_vehicles = Vehicle.maintenance
+    @vehicles =  Vehicle.all
+    
   end
 
   def show
@@ -49,6 +49,7 @@ class VehiclesController < ApplicationController
     @query = params[:query]
     @vehicles = Vehicle.where("plate_number LIKE ?", "%#{@query}%")
   end
+  
 
 
 end
