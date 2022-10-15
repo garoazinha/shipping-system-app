@@ -10,7 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_13_004615) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_15_214851) do
+  create_table "closed_delivery_data", force: :cascade do |t|
+    t.integer "status", default: 3
+    t.integer "service_order_id", null: false
+    t.datetime "closing_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["service_order_id"], name: "index_closed_delivery_data_on_service_order_id"
+  end
+
+  create_table "delay_reasons", force: :cascade do |t|
+    t.string "reason_for_delay"
+    t.integer "service_order_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["service_order_id"], name: "index_delay_reasons_on_service_order_id"
+  end
+
+  create_table "delivery_data", force: :cascade do |t|
+    t.integer "shipping_mode_id", null: false
+    t.integer "service_order_id", null: false
+    t.decimal "total_price", precision: 6, scale: 2
+    t.integer "estimated_delivery_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "vehicle_id", null: false
+    t.datetime "creation_date"
+    t.datetime "end_date"
+    t.index ["service_order_id"], name: "index_delivery_data_on_service_order_id"
+    t.index ["shipping_mode_id"], name: "index_delivery_data_on_shipping_mode_id"
+    t.index ["vehicle_id"], name: "index_delivery_data_on_vehicle_id"
+  end
+
   create_table "delivery_times", force: :cascade do |t|
     t.integer "min_distance"
     t.integer "max_distance"
@@ -106,8 +138,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_004615) do
   end
 
   create_table "weight_based_fees", force: :cascade do |t|
-    t.integer "min_distance"
-    t.integer "max_distance"
+    t.integer "min_weight"
+    t.integer "max_weight"
     t.decimal "fee_per_km", precision: 5, scale: 2
     t.integer "shipping_mode_id", null: false
     t.datetime "created_at", null: false
@@ -115,6 +147,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_004615) do
     t.index ["shipping_mode_id"], name: "index_weight_based_fees_on_shipping_mode_id"
   end
 
+  add_foreign_key "closed_delivery_data", "service_orders"
+  add_foreign_key "delay_reasons", "service_orders"
+  add_foreign_key "delivery_data", "service_orders"
+  add_foreign_key "delivery_data", "shipping_modes"
+  add_foreign_key "delivery_data", "vehicles"
   add_foreign_key "delivery_times", "shipping_modes"
   add_foreign_key "distance_based_fees", "shipping_modes"
   add_foreign_key "full_addresses", "service_orders"

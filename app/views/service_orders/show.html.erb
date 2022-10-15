@@ -47,3 +47,90 @@
 </dl>
 
 <%= t(@service_order.status) %>
+<div>
+  <h3>Modalidades de transporte disponíveis</h3>
+  <% @shipping_modes.each do |asm| %>
+    
+    <b><%= asm.name %></b>
+    <% if asm.delivery_times.any? && asm.distance_based_fees.any? && asm.weight_based_fees.any? %>
+      <dl>
+        <dt><%= ShippingMode.human_attribute_name(:fixed_fee) %>:</dt>
+        <dd><%= number_to_currency(asm.fixed_fee) %></dd>
+        <dt><%= DeliveryTime.human_attribute_name(:estimated_delivery_time) %>:</dt>
+        <dd><%= asm.find_estimated_delivery_time(distance: @service_order.distance) %> horas</dd>
+        <dt>Preço total:</dt>
+        <% total_price = asm.total_price(distance: @service_order.distance, product_weight: @service_order.product_weight) %>
+        <dd><%= number_to_currency(total_price) %> </dd>
+      <dl>
+    <% end %>
+    
+  <% end %>
+
+</div>
+
+
+<% if @service_order.pending? %>
+  <div class="initialize">
+  <h3>Inicializar entrega</h3>
+  <%= form_with(model: @delivery_datum, url: initialize_delivery_of_service_order_path(@service_order.id), method: :post) do |f| %>
+    <%= f.label :shipping_mode_id %>
+    <%= f.collection_select :shipping_mode_id, @shipping_modes, :id, :name %>
+    <%= f.submit "Iniciar" %>
+  <% end %>
+  </div>
+<% end %>
+
+
+<div>
+<% if @service_order.initialized? %>
+<h2>Dados da entrega</h2>
+   <%= @late %>
+  <dl>
+    <dt>Modalidade de transporte:</dt>
+    <dd><%= @service_order.delivery_datum.shipping_mode.name %></dd>
+    <dt>Prazo estimado:</dt>
+    <dd><%= @service_order.delivery_datum.estimated_delivery_time %></dd>
+    <dt>Preço total:</dt>
+    <dd><%= number_to_currency(@service_order.delivery_datum.total_price) %></dd>
+    <dt>Placa do veículo:</dt>
+    <dd><%= @service_order.delivery_datum.vehicle.plate_number %></dd>
+    <dt>Data de entrega:</dt>
+    <dd><%= l(@service_order.delivery_datum.end_date.to_date) %></dd>
+
+  </dl>
+  <%= button_to "Fechar", close_delivery_of_service_order_path(@service_order.id), method: :post %>
+  
+<% end %>
+</div>
+
+
+<% if @service_order.closed? %>
+<h2>Dados da entrega</h2>
+
+  <dl>
+    <dt>Modalidade de transporte:</dt>
+    <dd><%= @service_order.delivery_datum.shipping_mode.name %></dd>
+    <dt>Prazo estimado:</dt>
+    <dd><%= @service_order.delivery_datum.estimated_delivery_time %></dd>
+    <dt>Preço total:</dt>
+    <dd><%= number_to_currency(@service_order.delivery_datum.total_price) %></dd>
+    <dt>Placa do veículo:</dt>
+    <dd><%= @service_order.delivery_datum.vehicle.plate_number %></dd>
+    <dt>Data de entrega estimada:</dt>
+    <dd><%= l(@service_order.delivery_datum.end_date.to_date) %></dd>
+    <dt>Data de fechamento de ordem de serviço:</dt>
+    <dd><%= l(@service_order.closed_delivery_datum.closing_date.to_date) %></dd>
+    <dt>Status:</dt>
+    <dd><%= t(@service_order.closed_delivery_datum.status) %></dd>
+
+    <% if @service_order.closed_delivery_datum.late? %>
+      <dt>Motivo do atraso:</dt>
+      <dd><%= @service_order.delay_reason.reason_for_delay %></dd>
+
+    <% end %>
+
+
+  </dl>
+  
+<% end %>
+</div>

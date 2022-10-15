@@ -4,15 +4,15 @@
   <table>
     <thead>
       <tr>
-        <th><%= DistanceBasedFee.human_attribute_name(:min_distance) %> (km)</th>
-        <th><%= DistanceBasedFee.human_attribute_name(:max_distance) %> (km)</th>
-        <th><%= DistanceBasedFee.human_attribute_name(:fee_per_km) %> (R$)</th>
+        <th><%= WeightBasedFee.human_attribute_name(:min_weight) %> (km)</th>
+        <th><%= WeightBasedFee.human_attribute_name(:max_weight) %> (km)</th>
+        <th><%= WeightBasedFee.human_attribute_name(:fee_per_km) %> (R$)</th>
       <tr>
     </thead>
     <% @weight_based_fees.each do |wbf| %>
       <tr>
-        <td><%= wbf.min_distance %></td>
-        <td><%= wbf.max_distance %></td>
+        <td><%= wbf.min_weight %></td>
+        <td><%= wbf.max_weight %></td>
         <td><%= number_to_currency(wbf.fee_per_km, unit: "") %></td>
         <% if user_signed_in? && current_user.admin? %>
           <td><%= link_to 'Editar', edit_shipping_mode_weight_based_fee_path(@shipping_mode.id, wbf.id) %></td>

@@ -1,0 +1,11 @@
+<% if @service_order.late? %>
+ <p>A entrega está atrasada</p>
+  <%= form_with(model: [@service_order, @delay_reason]) do |f| %>
+    <div>
+    <%= f.label :reason_for_delay %>
+    <%= f.text_area :reason_for_delay %>
+    </div>
+    <%= f.submit "Enviar" %>
+  <% end %>
+<% end %>
+

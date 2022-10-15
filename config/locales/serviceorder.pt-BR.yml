@@ -1,7 +1,7 @@
 pt-BR:
   pending: Pendente
   initialized: Iniciado
-  ended: Fechado
+  closed: Fechado
   activerecord:
     models:
       service_order:

@@ -7,8 +7,8 @@ class WeightBasedFeesController < ApplicationController
 
   def create
     @shipping_mode = ShippingMode.find(params[:shipping_mode_id])
-    shipping_mode_weight_based_fee_params = params.require(:weight_based_fee).permit(:min_distance,
-                                                                               :max_distance, :fee_per_km)
+    shipping_mode_weight_based_fee_params = params.require(:weight_based_fee).permit(:min_weight,
+                                                                               :max_weight, :fee_per_km)
     @shipping_mode_weight_based_fee = @shipping_mode.weight_based_fees.new(shipping_mode_weight_based_fee_params)
     if @shipping_mode_weight_based_fee.save
       redirect_to shipping_mode_weight_based_fees_path(@shipping_mode.id), notice: 'Configuração salva com sucesso'
@@ -28,8 +28,8 @@ class WeightBasedFeesController < ApplicationController
 
   def update
     @shipping_mode = ShippingMode.find(params[:shipping_mode_id])
-    shipping_mode_weight_based_fee_params = params.require(:weight_based_fee).permit(:min_distance,
-                                                                               :max_distance, :fee_per_km)
+    shipping_mode_weight_based_fee_params = params.require(:weight_based_fee).permit(:min_weight,
+                                                                               :max_weight, :fee_per_km)
     @shipping_mode_weight_based_fee = WeightBasedFee.find(params[:id])
     if @shipping_mode_weight_based_fee.update(shipping_mode_weight_based_fee_params)
       redirect_to shipping_mode_weight_based_fees_path(@shipping_mode.id), notice: 'Configuração atualizada com sucesso'

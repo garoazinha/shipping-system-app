@@ -1,12 +1,12 @@
 
 <%= form_with(model: [@shipping_mode, @shipping_mode_weight_based_fee]) do |f| %>
   <div>
-  <%= f.label :min_distance %>
-  <%= f.number_field :min_distance %>
+  <%= f.label :min_weight %>
+  <%= f.number_field :min_weight %>
   </div>
   <div>
-  <%= f.label :max_distance %>
-  <%= f.number_field :max_distance %>
+  <%= f.label :max_weight %>
+  <%= f.number_field :max_weight %>
   </div>
   <div>
   <%= f.label :fee_per_km %>

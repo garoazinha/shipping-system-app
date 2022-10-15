@@ -1,0 +1,20 @@
+pt-BR:
+  late: Atrasado
+  on_time: "No prazo" 
+  activerecord:
+    models:
+      closed_delivery_datum:
+        one: Dados de fechamento de entrega
+        other: Dados de fechamento de entrega
+    attributes:
+      closed_delivery_datum:
+        service_order_id: Ordem de serviço
+  activerecord:
+    models:
+      delay_reason:
+        one: Dados de fechamento de entrega
+        other: Dados de fechamento de entrega
+    attributes:
+      delay_reason:
+        service_order_id: Ordem de serviço
+        reason_for_delay: Motivo do atraso

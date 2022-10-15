@@ -1,0 +1,12 @@
+pt-BR:
+
+  activerecord:
+    models:
+      delivery_datum:
+        one: Prazo de entrega
+        other: Prazos de entrega
+    attributes:
+      delivery_datum:
+        shipping_mode_id: Modalidades de transporte
+        service_order_id: Ordem de serviço
+        estimated_delivery_time: Prazo estimado

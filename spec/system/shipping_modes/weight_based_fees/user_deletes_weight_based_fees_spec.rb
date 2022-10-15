@@ -7,8 +7,8 @@ describe 'Usuário deleta configuração de taxas de acordo com peso' do
                          role: :admin)
     sm = ShippingMode.create!(name: 'Express', min_distance: 1, max_distance: 1000,
                               min_weight: 1, max_weight: 20000, fixed_fee: 1.50, status: :active)
-    sm.weight_based_fees.create!(min_distance: 0, max_distance: 50, fee_per_km: 5.50)
-    sm.weight_based_fees.create!(min_distance: 51, max_distance: 100, fee_per_km: 6.50)
+    sm.weight_based_fees.create!(min_weight: 0, max_weight: 50, fee_per_km: 5.50)
+    sm.weight_based_fees.create!(min_weight: 51, max_weight: 100, fee_per_km: 6.50)
 
     #Act
     login_as(user)

@@ -78,7 +78,6 @@ describe 'Usuário registra ordem de serviço' do
     #assert
     expect(page).to have_content('10cm x 20cm x 30cm')
     expect(page).to have_content('Rua da Amizade, 57')
-
     expect(page).to have_content('Rua do Ódio, 76')
   
 

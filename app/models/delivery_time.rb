@@ -4,7 +4,7 @@ class DeliveryTime < ApplicationRecord
   validates :min_distance, comparison: { greater_than_or_equal_to: 0 }
   validate :check_if_intervals_intersect
   validates :max_distance, comparison: { greater_than: :min_distance }
-  validates :estimated_delivery_time, uniqueness: true
+  validates :estimated_delivery_time, uniqueness: { scope: :shipping_mode_id }
 
   private
 

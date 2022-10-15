@@ -6,6 +6,6 @@ pt-BR:
         other: Taxas de acordo com pesos
     attributes:
       weight_based_fee:
-        min_distance: Distância mínima
-        max_distance: Distância máxima
+        min_weight: Peso mínimo
+        max_weight: Peso máximo
         fee_per_km: Taxa
