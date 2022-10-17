@@ -4,14 +4,14 @@
 <div>
 <% @vehicles.each do |v| %>
   <dl>
-    <dt><%= Vehicle.human_attribute_name(:plate_number) %></dt>
-    <dl><%= link_to v.plate_number.upcase, vehicle_path(v.id) %></dl>
+    <dt><%= Vehicle.human_attribute_name(:plate_number) %>:</dt>
+    <dd><%= link_to v.plate_number.upcase, vehicle_path(v.id) %></dd>
     <dt><%= Vehicle.human_attribute_name(:model) %>:</dt>
-    <dl><%= v.model %></dl>
+    <dd><%= v.model %></dd>
     <dt><%= Vehicle.human_attribute_name(:brand) %>:</dt>
-    <dl><%= v.brand %></dl>
+    <dd><%= v.brand %></dd>
     <dt><%= Vehicle.human_attribute_name(:year) %>:</dt>
-    <dl><%= v.year %></dl>
+    <dd><%= v.year %></dd>
     <dt>Status: </dt>
     <dd><%= t(v.activity) %></dd>
   

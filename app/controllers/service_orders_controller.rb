@@ -51,10 +51,9 @@ class ServiceOrdersController < ApplicationController
 
   def close_delivery_of
     @service_order = ServiceOrder.find(params[:id])
-    @service_order.closed!
-    closed_delivery_datum = @service_order.create_closed_delivery_datum(closing_date: Time.now)
+    delivery_datum = @service_order.delivery_datum
+    closed_delivery_datum = @service_order.create_closed_delivery_datum(closing_date: Time.now, delivery_datum: delivery_datum)
     if @service_order.late?
-      closed_delivery_datum.late!
       redirect_to new_service_order_delay_reason_path(@service_order.id), notice: "Ordem de serviço terminada com atraso"
     else
       redirect_to @service_order, notice: "Ordem de serviço terminada no prazo"

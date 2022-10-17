@@ -1,5 +1,14 @@
 <h2>Editar configuração de preços de acordo com peso</h2>
-
+<% if @shipping_mode_weight_based_fee.errors.any? %>
+  <div>
+    <ul>
+      <% @shipping_mode_weight_based_fee.errors.each do |e| %>
+        <li><%= e.full_message %></li>
+      <% end %>
+    </ul>
+    
+  </div>
+<% end %>
 <div>
   <table>
     <thead>
@@ -19,9 +28,18 @@
             <td><%= f.submit 'Atualizar' %></td>
           </tr>
         <% end %>
+      <% else %>
+        <tr>
+          <td><%= wbf.min_weight %></td>
+          <td><%= wbf.max_weight %></td>
+          <td><%= wbf.fee_per_km %></td>
+
+        </tr>
       <% end %>
     <% end %>
   
   </table>
   
 </div>
+
+<%= link_to "Voltar", shipping_mode_weight_based_fees_path(@shipping_mode.id) %>

@@ -2,12 +2,13 @@
 <% if user_signed_in? && current_user.admin? %>
   <%= link_to 'Adicionar ordem de serviço', new_service_order_path %>
 <% end %>
-
-<div>
+<br/>
+<br/>
+<div id="pending">
   <table>
     <thead>
       <tr>
-        <th>Entregas em andamento</th>
+        <th>Entregas pendentes</th>
       </tr>
       <tr>
         <th>Código da ordem de serviço</th>
@@ -34,8 +35,10 @@
 
 </div>
 
+<br/>
+<br/>
 
-<div>
+<div id="initialized">
   <table>
     <thead>
       <tr>
@@ -65,3 +68,7 @@
 
 
 </div>
+
+<br/>
+<br/>
+

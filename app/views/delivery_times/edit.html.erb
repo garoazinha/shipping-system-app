@@ -22,7 +22,7 @@
     <% @delivery_times.each do |dt| %>
       <% if dt == @shipping_mode_delivery_time %>
         <tr>
-          <%= form_with(model: [@shipping_mode, @shipping_mode_delivery_time]) do |f| %>
+          <%= form_with(model: [@shipping_mode, dt]) do |f| %>
             <td><%= dt.min_distance %></td>
             <td><%= dt.max_distance %></td>
             <td> <%= f.label :estimated_delivery_time, class: 'hide_label' %><%= f.number_field :estimated_delivery_time %></td>
@@ -42,3 +42,5 @@
   </table>
   
 </div>
+
+<%= link_to "Voltar", shipping_mode_delivery_times_path(@shipping_mode.id) %>

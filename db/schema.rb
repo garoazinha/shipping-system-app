@@ -10,13 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_15_214851) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_16_223221) do
   create_table "closed_delivery_data", force: :cascade do |t|
     t.integer "status", default: 3
     t.integer "service_order_id", null: false
     t.datetime "closing_date"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "estimated_end_date"
+    t.integer "delivery_datum_id", null: false
+    t.index ["delivery_datum_id"], name: "index_closed_delivery_data_on_delivery_datum_id"
     t.index ["service_order_id"], name: "index_closed_delivery_data_on_service_order_id"
   end
 
@@ -25,6 +28,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_15_214851) do
     t.integer "service_order_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "closed_delivery_datum_id", null: false
+    t.index ["closed_delivery_datum_id"], name: "index_delay_reasons_on_closed_delivery_datum_id"
     t.index ["service_order_id"], name: "index_delay_reasons_on_service_order_id"
   end
 
@@ -147,7 +152,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_15_214851) do
     t.index ["shipping_mode_id"], name: "index_weight_based_fees_on_shipping_mode_id"
   end
 
+  add_foreign_key "closed_delivery_data", "delivery_data"
   add_foreign_key "closed_delivery_data", "service_orders"
+  add_foreign_key "delay_reasons", "closed_delivery_data"
   add_foreign_key "delay_reasons", "service_orders"
   add_foreign_key "delivery_data", "service_orders"
   add_foreign_key "delivery_data", "shipping_modes"

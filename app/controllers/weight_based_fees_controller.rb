@@ -1,4 +1,6 @@
 class WeightBasedFeesController < ApplicationController
+  before_action :authenticate_user!
+  before_action :check_user_role, only: [:create, :edit, :update]
   def index
     @shipping_mode = ShippingMode.find(params[:shipping_mode_id])
     @shipping_mode_weight_based_fee = WeightBasedFee.new

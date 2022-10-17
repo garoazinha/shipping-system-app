@@ -1,0 +1,32 @@
+<h3>Resultado para <%= @delivery_code %></h3>
+<br/>
+<br/>
+<% if !@service_order.nil? %>
+  Entrega de código <%= @service_order.code %>
+  <dl>
+    <dt>Data de início:</dt>
+    <dd><%= l(@service_order.delivery_datum.creation_date) %></dd>
+    <dt>Previsão de entrega:</dt>
+    <dd><%= l(@service_order.delivery_datum.end_date) %></dd>
+    <dt>Veículo alocado:</dt>
+    <dd><%= @service_order.delivery_datum.vehicle.brand %> <%= @service_order.delivery_datum.vehicle.model %> <%= @service_order.delivery_datum.vehicle.year %>, <%= @service_order.delivery_datum.vehicle.plate_number %></dd>
+
+  </dl>
+
+  <% if @service_order.closed? %>
+    <b>Finalizado</b>
+    <dl>
+      <dt>Status:</dt>
+      <dd><%= t(@service_order.closed_delivery_datum.status) %></dd>
+      <dt>Data de entrega:</dt>
+      <dd><%= l(@service_order.closed_delivery_datum.closing_date) %></dd>
+      <% if @service_order.closed_delivery_datum.late? %>
+        <dt>Motivo do atraso:</dt>
+        <dd><%= @service_order.closed_delivery_datum.delay_reason.reason_for_delay %></dd>
+      <% end %>
+    </dl>
+  <% end %>
+
+<% else %>
+  <p>Nenhuma entrega encontrada</p>
+<% end %>

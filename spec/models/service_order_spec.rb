@@ -138,14 +138,14 @@ RSpec.describe ServiceOrder, type: :model do
       sm.weight_based_fees.create!(min_weight: 10_001, max_weight: 30_000, fee_per_km:0.25)
       sm.distance_based_fees.create!(min_distance: 0, max_distance: 200, fee: 2.00)
       sm.distance_based_fees.create!(min_distance: 201, max_distance: 500, fee: 5.00)
-      service_order = ServiceOrder.new(product_code: 'ABC1234', product_width: 20,
+      service_order = ServiceOrder.create!(product_code: 'ABC1234', product_width: 20,
         product_height: 20, product_depth: 10, product_weight: 1000,
-        recipient_name: 'Maria Silva', recipient_registration_number: '01234567899', distance: 200)
-      s_address = service_order.full_addresses.build(belonging_to: :recipient, 
-          zip_code: '123456000', city: 'São Paulo', state: 'SP', address: 'Avenida Amarelo, 12')
-      r_address = service_order.full_addresses.build(belonging_to: :shipper,
-          zip_code: '167456000', city: 'Curitiba', state: 'PR', address: 'Avenida Roxo, 95')
-      service_order.save
+        recipient_name: 'Maria Silva', recipient_registration_number: '01234567899', distance: 200,
+        full_addresses_attributes: [{belonging_to: :recipient, 
+          zip_code: '123456000', city: 'São Paulo', state: 'SP', address: 'Avenida Amarelo, 12'},
+          {belonging_to: :shipper,
+          zip_code: '167456000', city: 'Curitiba', state: 'PR', address: 'Avenida Roxo, 95'}])
+
       vehicle = Vehicle.create!(plate_number: 'BRA0Z21', model: 'Sprinter', brand: 'Mercedes-Benz',
                         year: 2017, max_capacity: 1500, activity: :operational)
       vehicle.vehicle_shipping_modes.create!(shipping_mode: sm)

@@ -127,4 +127,52 @@ RSpec.describe ShippingMode, type: :model do
       expect(result).to be false
     end
   end
+
+  describe 'Encontra-se dado' do
+    it 'de preço de acordo com distância através de tabela' do
+      sm = ShippingMode.create!(name: "Express", min_distance: 0, max_distance: 1000, 
+                              min_weight: 0, max_weight: 500_000, fixed_fee: 5.00)
+      sm.distance_based_fees.create!(min_distance: 0, max_distance: 200, fee: 2.00)
+      sm.distance_based_fees.create!(min_distance: 201, max_distance: 500, fee: 5.00)
+      
+      fee = sm.find_distance_based_fee(distance: 100)
+
+      expect(fee).to eq(2.00)
+    end
+
+    it 'de preço de acordo com peso através de tabela' do
+      sm = ShippingMode.create!(name: "Express", min_distance: 0, max_distance: 1000, 
+                              min_weight: 0, max_weight: 500_000, fixed_fee: 5.00)
+      sm.weight_based_fees.create!(min_weight: 0, max_weight: 10_000, fee_per_km: 0.10)
+      sm.weight_based_fees.create!(min_weight: 10_001, max_weight: 30_000, fee_per_km:0.25)
+      
+      fee_per_km = sm.find_weight_based_fee(product_weight: 2_000)
+
+      expect(fee_per_km).to eq(0.1)
+    end
+
+    it 'de prazo de acordo com distância através de tabela' do
+      sm = ShippingMode.create!(name: "Express", min_distance: 0, max_distance: 1000, 
+                              min_weight: 0, max_weight: 500_000, fixed_fee: 5.00)
+      sm.delivery_times.create!(min_distance: 0, max_distance: 150, estimated_delivery_time: 24)
+      sm.delivery_times.create!(min_distance: 151, max_distance: 500, estimated_delivery_time: 48)
+    
+      estimated_delivery_time = sm.find_estimated_delivery_time(distance: 100)
+
+      expect(estimated_delivery_time).to eq(24)
+    end
+
+    it 'e calcula-se preço total' do
+      sm = ShippingMode.create!(name: "Express", min_distance: 0, max_distance: 1000, 
+                              min_weight: 0, max_weight: 500_000, fixed_fee: 5.00)
+      sm.weight_based_fees.create!(min_weight: 0, max_weight: 10_000, fee_per_km: 0.10)
+      sm.weight_based_fees.create!(min_weight: 10_001, max_weight: 30_000, fee_per_km:0.25)
+      sm.distance_based_fees.create!(min_distance: 0, max_distance: 200, fee: 2.00)
+      sm.distance_based_fees.create!(min_distance: 201, max_distance: 500, fee: 5.00)
+
+      total_price = sm.total_price(distance: 100, product_weight: 1_000)
+
+      expect(total_price).to eq(17.0)
+    end
+  end
 end

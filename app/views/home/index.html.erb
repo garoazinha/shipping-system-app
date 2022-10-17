@@ -1,1 +1,10 @@
+<h2>Consulta de entregas</h2>
 
+<%= form_with(url: delivery_lookup_path, method: :get) do |f| %>
+  <div>
+    <%= f.label :delivery_code, "Código da entrega" %>
+    <%= f.text_field :delivery_code %>
+  </div>
+    <%= f.submit "Procurar" %>
+
+<% end %>

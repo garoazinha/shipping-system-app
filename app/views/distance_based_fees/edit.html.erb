@@ -1,5 +1,14 @@
 <h2>Editar configuração de preços de acordo com distância</h2>
-
+<% if @shipping_mode_distance_based_fee.errors.any? %>
+  <div>
+    <ul>
+      <% @shipping_mode_distance_based_fee.errors.each do |e| %>
+        <li><%= e.full_message %></li>
+      <% end %>
+    </ul>
+    
+  </div>
+<% end %>
 <div>
   <table>
     <thead>
@@ -11,17 +20,26 @@
     </thead>
     <% @distance_based_fees.each do |dbf| %>
       <% if dbf == @shipping_mode_distance_based_fee %>
-      <%= form_with(model: [@shipping_mode, @shipping_mode_distance_based_fee]) do |f| %>
+        <%= form_with(model: [@shipping_mode, @shipping_mode_distance_based_fee]) do |f| %>
+          <tr>
+            <td><%= dbf.min_distance %></td>
+            <td><%= dbf.max_distance %></td>
+            <td><%= f.label :fee, class: "hide_label" %> <%= f.number_field :fee, step: 0.01 %></td>
+            <td><%= f.submit 'Atualizar' %></td>
+          </tr>
+        <% end %>
+      <% else %>
         <tr>
-          <td><%= dbf.min_distance %></td>
-          <td><%= dbf.max_distance %></td>
-          <td><%= f.label :fee, class: "hide_label" %> <%= f.number_field :fee, step: 0.01 %></td>
-          <td><%= f.submit 'Atualizar' %></td>
-        </tr>
-      <% end %>
+            <td><%= dbf.min_distance %></td>
+            <td><%= dbf.max_distance %></td>
+            <td><%= dbf.fee %></td>
+ 
+          </tr>
       <% end %>
     <% end %>
   
   </table>
   
 </div>
+
+<%= link_to "Voltar", shipping_mode_distance_based_fees_path(@shipping_mode.id) %>

@@ -1,24 +1,25 @@
 require 'rails_helper'
 
-describe 'Usuário visualiza lista de ordens de serviço pendentes' do
+describe 'Usuário visualiza ordens de serviço pendentes' do
   it 'a partir da página de ordens de serviço' do
     user = User.create!(name: 'Mari', email: 'mari@sistemadefrete.com.br', password: 'password', role: :standard)
-    service_order = ServiceOrder.new(product_code: 'ABC1234', product_width: 20,
+    service_order = ServiceOrder.create!(product_code: 'ABC1234', product_width: 20,
       product_height: 20, product_depth: 10, product_weight: 1000,
-      recipient_name: 'Maria Silva', recipient_registration_number: '01234567899', distance: 200)
-    s_address = service_order.full_addresses.build(belonging_to: :recipient, 
-        zip_code: '123456000', city: 'São Paulo', state: 'SP', address: 'Avenida Amarelo, 12')
-    r_address = service_order.full_addresses.build(belonging_to: :shipper,
-        zip_code: '167456000', city: 'Curitiba', state: 'PR', address: 'Avenida Roxo, 95')
-    other_service_order = ServiceOrder.new(product_code: 'DEF09876', product_width: 30,
-      product_height: 40, product_depth: 50, product_weight: 450,
-      recipient_name: 'Jose Santos', recipient_registration_number: '91200011198', distance: 300, status: :closed)
-    other_s_address = other_service_order.full_addresses.build(belonging_to: :recipient, 
-        zip_code: '555550000', city: 'Rio de Janeiro', state: 'RJ', address: 'Avenida Rosa, 201')
-    other_r_address = other_service_order.full_addresses.build(belonging_to: :shipper,
-        zip_code: '444440000', city: 'Maringá', state: 'PR', address: 'Avenida Vermelho, 101')
-    service_order.save
-    other_service_order.save
+      recipient_name: 'Maria Silva', recipient_registration_number: '01234567899', distance: 200,
+      full_addresses_attributes: [
+        {belonging_to: :recipient, 
+        zip_code: '12345600', city: 'São Paulo', state: 'SP', address: 'Avenida Amarelo, 12'},
+        { belonging_to: :shipper,
+          zip_code: '16745600', city: 'Curitiba', state: 'PR', address: 'Avenida Roxo, 95' } ])
+    other_service_order = ServiceOrder.create!(product_code: 'DEF09876', product_width: 30,
+      product_height: 40, product_depth: 50, product_weight: 450, recipient_name: 'Jose Santos',
+      recipient_registration_number: '91200011198', distance: 300, status: :closed,
+      full_addresses_attributes:
+        {"1": {belonging_to: :recipient, 
+        zip_code: '55555000', city: 'Rio de Janeiro', state: 'RJ', address: 'Avenida Rosa, 201'},
+        "2": { belonging_to: :shipper,
+          zip_code: '44444000', city: 'Maringá', state: 'PR', address: 'Avenida Vermelho, 101' } })
+
 
     login_as(user)
     visit root_path
@@ -27,10 +28,11 @@ describe 'Usuário visualiza lista de ordens de serviço pendentes' do
     expect(page).to have_content("Saída")
     expect(page).to have_content("Destino")
     expect(page).to have_content("Código da ordem de serviço")
-    expect(page).to have_link("#{service_order.code}")
-    expect(page).not_to have_link("#{other_service_order.code}")
     expect(page).to have_content("São Paulo - SP")
     expect(page).to have_content("Curitiba - PR")
+    expect(page).to have_link("#{service_order.code}")
+
+    expect(page).not_to have_link("#{other_service_order.code}")
     expect(page).not_to have_content("Rio de Janeiro - RJ")
     expect(page).not_to have_content("Maringá - PR")
     expect(service_order.pending?).to be true
@@ -44,15 +46,14 @@ describe 'Usuário visualiza lista de ordens de serviço pendentes' do
     other_sm = ShippingMode.create!(name: "Convencional", min_distance: 0, max_distance: 1000, 
                                 min_weight: 0, max_weight: 100_000, fixed_fee: 5.00)
                                 
-    service_order = ServiceOrder.new(product_code: 'ABC1234', product_width: 20,
-      product_height: 20, product_depth: 10, product_weight: 854,
-      recipient_name: 'Maria Silva', recipient_registration_number: '01234567899', distance: 200)
-    s_address = service_order.full_addresses.build(belonging_to: :recipient, 
-        zip_code: '123456000', city: 'São Paulo', state: 'SP', address: 'Avenida Amarelo, 12')
-    r_address = service_order.full_addresses.build(belonging_to: :shipper,
-        zip_code: '167456000', city: 'Curitiba', state: 'PR', address: 'Avenida Roxo, 95')
-    service_order.save
-
+    service_order = ServiceOrder.create!(product_code: 'ABC1234', product_width: 20,
+      product_height: 20, product_depth: 10, product_weight: 1000,
+      recipient_name: 'Maria Silva', recipient_registration_number: '01234567899', distance: 200,
+      full_addresses_attributes:
+        [{belonging_to: :recipient, 
+        zip_code: '123456000', city: 'São Paulo', state: 'SP', address: 'Avenida Amarelo, 12'},
+         { belonging_to: :shipper,
+          zip_code: '167456000', city: 'Curitiba', state: 'PR', address: 'Avenida Roxo, 95' } ])
 
     login_as(user)
     visit root_path
@@ -77,14 +78,14 @@ describe 'Usuário visualiza lista de ordens de serviço pendentes' do
     sm.weight_based_fees.create!(min_weight: 10_001, max_weight: 50_000, fee_per_km:0.25)
     sm.distance_based_fees.create!(min_distance: 0, max_distance: 200, fee: 2.00)
     sm.distance_based_fees.create!(min_distance: 201, max_distance: 500, fee: 5.00)
-    service_order = ServiceOrder.new(product_code: 'ABC1234', product_width: 20,
+    service_order = ServiceOrder.create!(product_code: 'ABC1234', product_width: 20,
       product_height: 20, product_depth: 10, product_weight: 1000,
-      recipient_name: 'Maria Silva', recipient_registration_number: '01234567899', distance: 200)
-    s_address = service_order.full_addresses.build(belonging_to: :recipient, 
-        zip_code: '123456000', city: 'São Paulo', state: 'SP', address: 'Avenida Amarelo, 12')
-    r_address = service_order.full_addresses.build(belonging_to: :shipper,
-        zip_code: '167456000', city: 'Curitiba', state: 'PR', address: 'Avenida Roxo, 95')
-    service_order.save
+      recipient_name: 'Maria Silva', recipient_registration_number: '01234567899', distance: 200,
+      full_addresses_attributes:
+        [{belonging_to: :recipient, 
+        zip_code: '123456000', city: 'São Paulo', state: 'SP', address: 'Avenida Amarelo, 12'},
+        { belonging_to: :shipper,
+          zip_code: '167456000', city: 'Curitiba', state: 'PR', address: 'Avenida Roxo, 95' } ])
 
 
     login_as(user)

@@ -9,3 +9,6 @@ Aplicação também possibilita a criação, edição e associação a modalidad
 
 Um usuário administrador pode criar uma ordem de serviço, que deve conter dois endereços, um de retirada e um de destino. Ao criar a ordem de serviço um código é criado automaticamente. 
 
+Um usuário autenticado pode inicializar ordens de serviço selecionando a modalidade de transporte. Um usuário também pode fechar ordens de serviço.
+
+As atividades foram gerenciadas através de um quadro no [Trello](https://trello.com/b/curhUqaO/sistema-de-fretes)
