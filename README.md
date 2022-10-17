@@ -1,5 +1,5 @@
 Sistema de fretes
-Rodar comando db:seeds para criar um usuário administrador (Nome: Mari, E-mail: mari@sistemadefrete.com.br, Senha: password), duas modalidades de transporte, e dois veículos, um em manutenção e um operacional. 
+Rodar comando db:seeds para criar um usuário administrador (Nome: Mari, E-mail: mari@sistemadefrete.com.br, Senha: password), duas modalidades de transporte, e quatro veículos.
 Aplicação que possibilita a criação, edição e desativação de modalidades de transporte, mas só para usuários autenticados e que estão marcados como administradores. Podem ser configurados os prazos estimados de entrega para uma modalidade de transporte. Assim que os intervalos são configurados, é possível atualizar o prazo estimado para tal intervalo. Para mudar os intervalos é necessário desabilitar todas os prazos e intervalos ativos. Também podem ser configuradas as taxas baseadas na distância total da entrega, considerando também intervalos. Para trocar intervalos pré-estabelecidos é necessário deletar todos os intervalos. O mesmo foi feito para as taxas baseadas em peso.
 
 Um usuário não autenticado e um usuário regular podem ver as modalidades de transporte. 
