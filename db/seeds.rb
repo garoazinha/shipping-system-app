@@ -73,3 +73,16 @@ full_addresses_attributes: [{belonging_to: :recipient,
   {belonging_to: :shipper,
   zip_code: '167456000', city: 'Curitiba', state: 'PR', address: 'Avenida Roxo, 95'}])
 
+other_service_order = ServiceOrder.create!(product_code: 'DEF0981', product_width: 50,
+    product_height: 50, product_depth: 10, product_weight: 800,
+    recipient_name: 'Ana Souza', recipient_registration_number: '12243254219', distance: 150,
+  full_addresses_attributes: [{belonging_to: :recipient, 
+    zip_code: '98100000', city: 'Rio de Janeiro', state: 'RJ', address: 'Rua Anil, 44'},
+    {belonging_to: :shipper,
+    zip_code: '33300000', city: 'Campo Grande', state: 'MS', address: 'Avenida Cinza, 109'}])
+total_price = sm.total_price(distance: 150, product_weight: 2000)
+estimated_delivery_time = sm.find_estimated_delivery_time(distance: 150)
+other_service_order.create_delivery_datum(end_date: '2022-09-09',
+                                          shipping_mode: sm, total_price: total_price,
+                                          estimated_delivery_time: estimated_delivery_time,
+                                          vehicle: vehicle_a, creation_date: '2022-08-08' )
