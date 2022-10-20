@@ -1,4 +1,6 @@
 pt-BR:
+  admin: 'Administrador'
+  standard: 'Regular'
   activerecord:
     model:
       user:

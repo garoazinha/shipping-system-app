@@ -89,7 +89,7 @@
     <dt>Modalidade de transporte:</dt>
     <dd><%= @service_order.delivery_datum.shipping_mode.name %></dd>
     <dt>Prazo estimado:</dt>
-    <dd><%= @service_order.delivery_datum.estimated_delivery_time %></dd>
+    <dd><%= @service_order.delivery_datum.estimated_delivery_time %> horas</dd>
     <dt>Preço total:</dt>
     <dd><%= number_to_currency(@service_order.delivery_datum.total_price) %></dd>
     <dt>Placa do veículo:</dt>
@@ -111,7 +111,7 @@
     <dt>Modalidade de transporte:</dt>
     <dd><%= @service_order.delivery_datum.shipping_mode.name %></dd>
     <dt>Prazo estimado:</dt>
-    <dd><%= @service_order.delivery_datum.estimated_delivery_time %></dd>
+    <dd><%= @service_order.delivery_datum.estimated_delivery_time %> horas</dd>
     <dt>Preço total:</dt>
     <dd><%= number_to_currency(@service_order.delivery_datum.total_price) %></dd>
     <dt>Placa do veículo:</dt>

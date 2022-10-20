@@ -19,6 +19,8 @@ class DeliveryDatum < ApplicationRecord
     self.service_order.initialized!
   end
 
+
+
   private 
 
   def vehicle_must_be_working_for_shipping_mode

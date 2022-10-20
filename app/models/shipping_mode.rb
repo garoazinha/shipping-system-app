@@ -34,4 +34,5 @@ class ShippingMode < ApplicationRecord
     find_distance_based_fee(distance: distance ) + find_weight_based_fee(product_weight: product_weight )*distance + self.fixed_fee
   end
 
+
 end

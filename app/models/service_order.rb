@@ -28,8 +28,24 @@ class ServiceOrder < ApplicationRecord
     end
   end
 
+  def find_available_shipping_modes
+    distance = self.distance
+    product_weight = self.product_weight
+    ShippingMode.where(min_distance: ..distance).where(max_distance: distance..).where(min_weight: ..product_weight).where(max_weight: product_weight..)
+  end
 
+  def build_delivery_data(shipping_mode:)
+    vehicle = shipping_mode.vehicles.operational.first
+    estimated_delivery_time = shipping_mode.find_estimated_delivery_time(
+                                        distance: self.distance)
+    total_price = shipping_mode.total_price(distance: self.distance,
+                               product_weight: self.product_weight )
+    DeliveryDatum.new(service_order: self, shipping_mode: shipping_mode, vehicle: vehicle, 
+                      estimated_delivery_time: estimated_delivery_time,
+                      total_price: total_price,
+                      creation_date: Time.now, end_date: Time.now + estimated_delivery_time.hours)
 
+  end
 
   private
 

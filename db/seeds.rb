@@ -46,6 +46,7 @@ DistanceBasedFee.create!(min_distance: 0, max_distance: 300, fee: 2.00,
                           shipping_mode: other_sm)
 end
 User.create!(name: 'Mari', email: 'mari@sistemadefrete.com.br', password: 'password', role: :admin)
+User.create!(name: 'Pedro', email: 'pedro@sistemadefrete.com.br', password: 'password', role: :standard)
 
 vehicle_a = Vehicle.create!(plate_number: 'BRA0Z21', model: 'Sprinter', brand: 'Mercedes-Benz',
                 year: 2017, max_capacity: 1500, activity: :operational)

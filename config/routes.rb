@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   end
 
   resources :service_orders, only: [:index, :new, :create, :show] do 
+    get 'closed', on: :collection
     post 'initialize_delivery_of', on: :member
     post 'close_delivery_of', on: :member
     resources :delay_reasons, only: [:new, :create]

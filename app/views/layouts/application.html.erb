@@ -15,19 +15,19 @@
     <header>
       <div> 
         <% if user_signed_in? %>
-         <p><%= current_user.name %></p>
+         <p>Usuário: <%= current_user.name %>, <%= t(current_user.role) %></p>
         <% end %>
       </div>
       <h1>Sistema de Fretes Mari&Mari</h1>
       <nav>
+        <%= link_to 'Consulta de entregas', root_path %> |
         <%= link_to 'Modalidades de transporte', shipping_modes_path %> | 
-        <%= link_to 'Veículos', vehicles_path %> |
-        <%= link_to 'Consulta de entregas', root_path %>
+        <%= link_to 'Veículos', vehicles_path %> 
         <% if user_signed_in? %>
           | <%= link_to 'Ordens de serviço', service_orders_path %>
           | <%= button_to 'Sair', destroy_user_session_path, method: :delete %>
         <% else %>
-          |<%= link_to 'Login', new_user_session_path %>
+          | <%= link_to 'Login', new_user_session_path %>
         <% end %>
         
       </nav>

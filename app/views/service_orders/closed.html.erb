@@ -1,0 +1,32 @@
+<h2>Ordens de serviço finalizadas</h2>
+
+<div id="closed">
+  <table>
+    <thead>
+      <tr>
+        <th>Entregas finalizadas</th>
+      </tr>
+      <tr>
+        <th>Código da ordem de serviço</th>
+        <th>Saída</th>
+        <th>Destino</th>
+        <th>Status</th>
+      </tr>
+    
+    </thead>
+    <tbody>
+      <% @service_orders.each do |so| %>
+      <tr>
+        <td><%= link_to so.code, service_order_path(so.id) %></td>
+        <td><%= so.full_addresses.shipper.first.city %> - <%= so.full_addresses.shipper.first.state %></td>
+        <td><%= so.full_addresses.recipient.first.city %> - <%= so.full_addresses.recipient.first.state %></td>
+        <td><%= t(so.status) %></td>
+      </tr>
+    
+      <% end %>
+    </tbody>  
+  
+  </table>
+
+
+</div>
