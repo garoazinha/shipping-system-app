@@ -5,41 +5,55 @@
         <li><%= e.full_message %></li>
       <% end %>
     </ul>
-    
   </div>
 <% end %>
-
+<div>
 <%= form_with(model: @shipping_mode) do |f| %>
-  <div>
-    <%= f.label :name %>
-    <%= f.text_field :name %>
+  <div class="mb-3 row">
+    <%= f.label :name, class:"col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
   </div>
-  <div>
-    <%= f.label :max_distance %>
-    <%= f.number_field :max_distance %> km
+  <div class="mb-3 row">
+    <%= f.label :max_distance, class:"col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :max_distance, class: "form-control" %>
+    </div>
   </div>
-  <div>
-    <%= f.label :min_distance %>
-    <%= f.number_field :min_distance %> km
+  <div class="mb-3 row">
+    <%= f.label :min_distance, class:"col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :min_distance, class: "form-control" %>
+    </div>
   </div>
-  <div>
-    <%= f.label :max_weight  %>
-    <%= f.number_field :max_weight %> g
+  <div class="mb-3 row">
+    <%= f.label :max_weight, class:"col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :max_weight, class: "form-control" %>
+    </div>
   </div>
-  <div>
-    <%= f.label :min_weight %>
-    <%= f.number_field :min_weight %> g
+  <div class="mb-3 row">
+    <%= f.label :min_weight, class:"col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= f.number_field :min_weight, class: "form-control" %>
+    </div>
   </div>
-  <div>
-    <%= f.label :fixed_fee %>
-    R$<%= f.number_field :fixed_fee, step: 0.01 %>
+  <div class="mb-3 row">
+    <%= f.label :fixed_fee, class:"col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      R$<%= f.number_field :fixed_fee, step: 0.01, class: "form-control" %>
+    </div>
   </div>
-  <div>
-    <%= f.label :description %>
-    <%= f.text_area :description %>
+  <div class="mb-3 row">
+    <%= f.label :description, class:"col-sm-2 col-form-label" %>
+    <div class="col-sm-10">
+      <%= f.text_area :description, class: "form-control" %>
+    </div>
   </div>
   
- 
+
 
   <%= f.submit 'Enviar' %>
 <% end %>
+</div>

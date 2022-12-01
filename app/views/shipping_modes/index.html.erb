@@ -1,22 +1,24 @@
-<h2>Modalidades de transporte</h2>
+<h2 class= "display-8 text-center">Modalidades de transporte</h2>
 <br/>
 <% if user_signed_in?  && current_user.admin? %>
- <%= link_to 'Cadastrar nova modalidade de transporte', new_shipping_mode_path %>
+ <%= link_to 'Cadastrar nova modalidade de transporte', new_shipping_mode_path, class: "btn btn-dark m-2" %>
 <% end %>
-
+<div class="card-group p-3">
 <% @shipping_modes.active.each do |sm| %>
-  <h4><%= link_to sm.name, shipping_mode_path(sm.id) %></h4>
-  <dl>
-    <dt>Intervalo de distância:</dt>
-    <dd><%= sm.min_distance %>-<%= sm.max_distance %> km</dd>
-    <dt>Intervalo de peso:</dt>
-    <dd><%= number_with_precision(sm.min_weight.to_f/1000) %>-<%= number_with_precision(sm.max_weight.to_f/1000, precision: 0) %> kg</dd>
-    <dt><%= ShippingMode.human_attribute_name(:fixed_fee) %>:</dt>
-    <dd><%= number_to_currency(sm.fixed_fee) %></dd>
+  <div class="card p-3">
+  <h4><%= link_to sm.name, shipping_mode_path(sm.id), class: "card-title text-black-50" %></h4>
+  <dl class="row">
+    <dt class="col-sm-5">Intervalo de distância:</dt>
+    <dd class="col-md-auto"><%= sm.min_distance %>-<%= sm.max_distance %> km</dd>
+    <dt class="col-sm-5">Intervalo de peso:</dt>
+    <dd class="col-md-auto"><%= number_with_precision(sm.min_weight.to_f/1000) %>-<%= number_with_precision(sm.max_weight.to_f/1000, precision: 0 ) %> kg</dd>
+    <dt class="col-sm-5"><%= ShippingMode.human_attribute_name(:fixed_fee) %>:</dt>
+    <dd class="col-md-auto"><%= number_to_currency(sm.fixed_fee) %></dd>
   
   </dl>
+  </div>
 <% end %>
-
+</div>
 <% if @shipping_modes.empty? %>
   Não há modalidades de transporte disponíveis
 <% end %>

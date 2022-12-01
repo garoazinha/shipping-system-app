@@ -6,7 +6,7 @@ describe 'Usuário visita página inicial' do
     #Act
     visit root_path
     #Assert
-    expect(page).to have_content('Sistema de Fretes Mari&Mari')
+    expect(page).to have_content('Sistema de Fretes')
 
   end
 end

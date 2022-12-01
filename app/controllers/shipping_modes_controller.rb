@@ -22,7 +22,7 @@ class ShippingModesController < ApplicationController
     if @shipping_mode.save
       redirect_to shipping_mode_path(@shipping_mode.id), notice: "Modalidade de transporte salva com sucesso"
     else
-      flash.now[:notice] = "Cadastro de modalidade de transporte não pode ser realizada"
+      flash.now[:alert] = "Cadastro de modalidade de transporte não pode ser realizada"
       render :new
     end
 
@@ -40,7 +40,7 @@ class ShippingModesController < ApplicationController
     if @shipping_mode.update(sm_params)
       redirect_to @shipping_mode, notice: 'Modalidade de transporte atualizada com sucesso'
     else
-      flash.now[:notice] = "Modalidade de transporte não pode ser atualizada"
+      flash.now[:alert] = "Modalidade de transporte não pode ser atualizada"
       render :edit
     end
   end
@@ -53,7 +53,10 @@ class ShippingModesController < ApplicationController
 
   end
   
-  
+  private
+
+  def shipping_mode_params
+  end
 
   
   

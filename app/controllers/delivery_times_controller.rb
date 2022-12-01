@@ -17,7 +17,7 @@ class DeliveryTimesController < ApplicationController
     if @shipping_mode_delivery_time.save
       redirect_to shipping_mode_delivery_times_path(@shipping_mode.id), notice: 'Nova configuração salva com sucesso'
     else 
-      flash.now[:notice] = 'Não foi possível configurar prazo'
+      flash.now[:alert] = 'Não foi possível configurar prazo'
       @delivery_times = @shipping_mode.delivery_times.reload
 
       render :index
@@ -40,7 +40,7 @@ class DeliveryTimesController < ApplicationController
     if @shipping_mode_delivery_time.update(shipping_mode_delivery_time_params)
       redirect_to shipping_mode_delivery_times_path(@shipping_mode.id), notice: 'Configuração atualizada com sucesso'
     else 
-      flash.now[:notice] = 'Não foi possível configurar prazo'
+      flash.now[:alert] = 'Não foi possível configurar prazo'
       @delivery_times = @shipping_mode.delivery_times.reload
       render :edit
     end

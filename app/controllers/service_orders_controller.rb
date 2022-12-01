@@ -31,7 +31,7 @@ class ServiceOrdersController < ApplicationController
     else
 
       @service_order.full_addresses.build()
-      flash.now[:notice] = 'Ordem de serviço não pode ser criada'
+      flash.now[:alert] = 'Ordem de serviço não pode ser criada'
       render :new
     end
 

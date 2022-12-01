@@ -6,11 +6,17 @@ Aplicação criada em Windows 10, com uso do subsistema do Windows para Linux (W
 - Ruby 3.0.0
 - Rails 7.0.4
 
+## Gems
+- Devise
+- Rspec-rails
+- Bootstrap
+
 ## Acessando aplicação
 
 - Clonar repositório em pasta local
 - Instalar dependências:  `$ bin/setup`
 - Popular banco de dados: `$ rails db:seeds`
+- Rodar aplicação em browser: `$ rails/server`
 
 O arquivo db/seeds.rb contém dois usuários: 
 

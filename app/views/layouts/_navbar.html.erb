@@ -1,0 +1,39 @@
+<nav class="navbar navbar-expand-lg bg-light">
+  <div class="container-fluid">
+    <%= link_to 'Sistema de Fretes', root_path, class:"navbar-brand" %>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to 'Modalidades de transporte', shipping_modes_path, class:"nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Veículos', vehicles_path, class:"nav-link" %>
+        </li>
+        <% if user_signed_in? %>
+        <li class="nav-item">
+          <%= link_to 'Ordens de serviço', service_orders_path, class:"nav-link" %>
+        </li>
+        <% end %>
+      </ul>
+      <% if user_signed_in? %>
+        <p class="nav navbar-text me-2">Usuário: <%= current_user.name %>, <%= t(current_user.role) %></p>
+      <% end %>
+      <ul class="nav navbar-nav navbar-right">
+        
+        <% if user_signed_in? %>
+          <li class="nav-item">
+            <%= button_to 'Sair', destroy_user_session_path, method: :delete, class: 'btn btn-outline-success' %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to 'Login', new_user_session_path, class: 'btn btn-outline-success' %>
+          </li>
+        <% end %>
+      </ul>
+
+    </div>
+  </div>
+</nav>

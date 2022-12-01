@@ -16,7 +16,7 @@ class DistanceBasedFeesController < ApplicationController
       redirect_to shipping_mode_distance_based_fees_path(@shipping_mode.id), notice: 'Nova configuração de preço salva com sucesso'
     else 
       @distance_based_fees = @shipping_mode.distance_based_fees.reload
-      flash.now[:notice] = "Configuração não pode ser salva"
+      flash.now[:alert] = "Configuração não pode ser salva"
       render :index
     end
   end
@@ -38,7 +38,7 @@ class DistanceBasedFeesController < ApplicationController
       redirect_to shipping_mode_distance_based_fees_path(@shipping_mode.id), notice: 'Taxa atualizada com sucesso'
     else 
       @distance_based_fees = @shipping_mode.distance_based_fees.reload
-      flash.now[:notice] = "Taxa não pode ser atualizada"
+      flash.now[:alert] = "Taxa não pode ser atualizada"
       render :edit
     end
 

@@ -1,42 +1,28 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ShippingSystemApp</title>
+    <title>Sistema de Fretes</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
 
     <header>
-      <div> 
-        <% if user_signed_in? %>
-         <p>Usuário: <%= current_user.name %>, <%= t(current_user.role) %></p>
-        <% end %>
-      </div>
-      <h1>Sistema de Fretes Mari&Mari</h1>
-      <nav>
-        <%= link_to 'Consulta de entregas', root_path %> |
-        <%= link_to 'Modalidades de transporte', shipping_modes_path %> | 
-        <%= link_to 'Veículos', vehicles_path %> 
-        <% if user_signed_in? %>
-          | <%= link_to 'Ordens de serviço', service_orders_path %>
-          | <%= button_to 'Sair', destroy_user_session_path, method: :delete %>
-        <% else %>
-          | <%= link_to 'Login', new_user_session_path %>
-        <% end %>
-        
-      </nav>
-
-    
-    
+      <%= render 'layouts/navbar' %>
     </header>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
+    
+    <div class="container p-3">
+      <% if notice.present? %>
+        <div class="alert alert-success" role="alert"><%= notice %></div>
+      <% elsif alert.present? %>
+        <div class="alert alert-danger" role="alert"><%= alert %></div>
+      <% end %>
+      <%= yield %>
+    </div>
   </body>
 </html>

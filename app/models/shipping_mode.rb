@@ -11,6 +11,11 @@ class ShippingMode < ApplicationRecord
 
   validates :name, :min_distance, :max_distance, :min_weight, :max_weight, :fixed_fee, presence: true
   validates :min_distance, :min_weight, :fixed_fee, comparison: { greater_than_or_equal_to: 0 }
+  validates :min_distance, comparison: { less_than: :max_distance }
+  validates :max_distance, comparison: { greater_than: :min_distance }
+
+  validates :min_weight, comparison: { less_than: :max_weight }
+  validates :max_weight, comparison: { greater_than: :min_weight }
   validates :fixed_fee, comparison: { greater_than: 0 }
   validates :name, uniqueness: true
   

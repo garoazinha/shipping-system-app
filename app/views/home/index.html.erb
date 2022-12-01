@@ -1,10 +1,18 @@
-<h2>Consulta de entregas</h2>
+<h2 class= "display-8 text-center">Consulta de entregas</h2>
 
 <%= form_with(url: delivery_lookup_path, method: :get) do |f| %>
-  <div>
-    <%= f.label :delivery_code, "Código da entrega" %>
-    <%= f.text_field :delivery_code %>
+  <div class="mb-auto row p-5">
+    <%= f.label :delivery_code, "Código da entrega", class: "col-sm-2 col-form-label" %>
+    <div class="col-sm-8">
+      <%= f.text_field :delivery_code, class:"form-control" %>
+    </div>
+    <div class="col-sm-2">
+    <%= f.submit "Procurar", class:"btn btn-primary" %>
+    </div>
   </div>
-    <%= f.submit "Procurar" %>
+  
 
 <% end %>
+
+
+

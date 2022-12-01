@@ -1,24 +1,29 @@
-<h3><%= @shipping_mode.name %></h3>
+<h3 class="text-center">
+    <%= @shipping_mode.name %>
+    <% if user_signed_in? && current_user.admin? %>
+        <small class="text-muted fs-6"><%= link_to 'Editar', edit_shipping_mode_path(@shipping_mode.id) %></small>
+    <% end %>
+</h3>
+<ul class="nav justify-content-center my-2">
+    <li class="nav-item"><%= link_to 'Prazos', shipping_mode_delivery_times_path(@shipping_mode.id), class: "nav-link" %></li>
+    <li class="nav-item"><%= link_to 'Taxas de acordo com distância', shipping_mode_distance_based_fees_path(@shipping_mode.id), class: "nav-link" %></li>
+    <li class="nav-item"><%= link_to 'Taxas de acordo com peso', shipping_mode_weight_based_fees_path(@shipping_mode.id), class: "nav-link" %></li>
 
-<% if user_signed_in? && current_user.admin? %>
-    <p><%= link_to 'Editar', edit_shipping_mode_path(@shipping_mode.id) %></p>
-    
-<% end %>
-<%= link_to 'Prazos', shipping_mode_delivery_times_path(@shipping_mode.id) %> | 
-<%= link_to 'Taxas de acordo com distância', shipping_mode_distance_based_fees_path(@shipping_mode.id) %> | 
-<%= link_to 'Taxas de acordo com peso', shipping_mode_weight_based_fees_path(@shipping_mode.id) %>
+</ul>
 
-<p><%= @shipping_mode.description %></p>
 
-<dl>
-    <dt>Intervalo de distância de serviço:</dt>
-    <dd><%= @shipping_mode.min_distance %>-<%= @shipping_mode.max_distance %> km</dd>
-    <dt>Intervalo de peso de serviço:</dt>
-    <dd><%= number_with_precision(@shipping_mode.min_weight.to_f/1000) %>-<%= @shipping_mode.max_weight/1000 %> kg</dd>
-    <dt><%= ShippingMode.human_attribute_name(:fixed_fee) %>:</dt>
-    <dd><%= number_to_currency(@shipping_mode.fixed_fee) %></dd>
-    <dt>Status:</dt>
-    <dd><%= t(@shipping_mode.status) %></dd>
-
-  
-</dl>
+<div class="card">
+    <div class="card-body m-2">
+    <p class="lead"><%= @shipping_mode.description %></p>
+    <dl class="row">
+        <dt class="col-sm-8">Intervalo de distância de serviço:</dt>
+        <dd class="col-sm-4"><%= @shipping_mode.min_distance %>-<%= @shipping_mode.max_distance %> km</dd>
+        <dt class="col-sm-8">Intervalo de peso de serviço:</dt>
+        <dd class="col-sm-4"><%= number_with_precision(@shipping_mode.min_weight.to_f/1000) %>-<%= number_with_precision(@shipping_mode.max_weight.to_f/1000, precision: 0) %> kg</dd>
+        <dt class="col-sm-8"><%= ShippingMode.human_attribute_name(:fixed_fee) %>:</dt>
+        <dd class="col-sm-4"><%= number_to_currency(@shipping_mode.fixed_fee) %></dd>
+        <dt class="col-sm-8">Status:</dt>
+        <dd class="col-sm-4"><%= t(@shipping_mode.status) %></dd>  
+    </dl>
+    </div>
+</div>
